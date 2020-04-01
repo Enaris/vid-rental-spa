@@ -1,0 +1,35 @@
+@import '../../../sass/colors';
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 10vw;
+  border-bottom: 1px solid $melrose;
+
+  .header-link {
+    color: $melrose;
+    padding: 10px;
+    text-decoration: none;
+    margin-right: 5px;
+
+    &.header-link-active {
+      font-weight: bold;
+      color: $titan-white;
+    }
+    
+    &:hover {
+      color: $periwinkle;
+    }
+
+    &:last-child {
+      padding-right: 0;
+      margin-left: auto;
+      margin-right: 5px;
+    }
+
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}

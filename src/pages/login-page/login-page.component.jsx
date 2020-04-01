@@ -1,9 +1,9 @@
 import React from 'react';
 
-import './login-page.syles.scss';
+import './login-page.styles.scss';
 
 const LoginPage = () => (
-  <div class='login-page'>
+  <div className='login-page'>
     LOGIN PAGE WORKS
   </div>
 )

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './register-page.syles.scss';
+import './register-page.styles.scss';
 
 const RegisterPage = () => (
   <div class='register-page'>
