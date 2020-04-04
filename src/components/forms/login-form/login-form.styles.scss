@@ -1,0 +1,26 @@
+@import '../../../sass/colors';
+
+.login-form-contanier {
+  
+  .register-link-container {
+    margin-top: 0.7rem;
+    
+    .register-link {
+      text-decoration: none;
+      color: $melrose;
+      font-weight: bold;
+    }
+  }
+
+  .login-form {
+    width: 100%;
+    
+    .custom-button {
+      margin-top: 10px;
+    }
+    
+    .custom-form-input {
+      margin-bottom: 5px;
+    }
+  }
+}

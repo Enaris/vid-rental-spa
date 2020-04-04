@@ -2,9 +2,13 @@ import React from 'react';
 
 import './login-page.styles.scss';
 
+import LoginForm from '../../components/forms/login-form/login-form.component';
+
 const LoginPage = () => (
   <div className='login-page'>
-    LOGIN PAGE WORKS
+    <div className='small-content-container'>
+      <LoginForm />
+    </div>
   </div>
 )
 

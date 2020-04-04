@@ -1,0 +1,28 @@
+@import './sass/colors';
+
+* {
+  margin: 0;
+  padding: 0;
+  color: $text-light;
+  font-family: 'Titillium Web';
+}
+
+.small-container {
+  width: 40vw;
+  max-width: 600px;
+}
+
+.small-content-container {
+  width: 40vw;
+  max-width: 600px;
+  background-color: $bg-dark;
+  padding: 2rem;
+}
+
+.w100 {
+  width: 100%;
+}
+
+body {
+  background-color: $bg-normal;
+}

@@ -3,15 +3,18 @@
 .header {
   display: flex;
   align-items: center;
-  height: 60px;
+  flex-wrap: wrap;
+  min-height: 60px;
   padding: 0 10vw;
   border-bottom: 1px solid $melrose;
+  background-color: $bg-dark;
 
   .header-link {
     color: $melrose;
     padding: 10px;
     text-decoration: none;
     margin-right: 5px;
+    background-color: $bg-dark;
 
     &.header-link-active {
       font-weight: bold;

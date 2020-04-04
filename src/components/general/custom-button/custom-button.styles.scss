@@ -1,0 +1,18 @@
+@import '../../../sass/colors';
+
+.custom-button {
+  border: none;
+  background-color: $titan-white;
+  cursor: pointer;
+  padding: 0.5rem 0.3rem;
+  font-weight: bold;
+  color: $bg-dark;
+  font-size: 1rem;
+
+  &:disabled,
+  &[disabled] {
+    background-color: $disabled-btn-bg;
+    color: $disabled-btn-txt;
+    cursor: unset;
+  }
+}
