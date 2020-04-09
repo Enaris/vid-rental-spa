@@ -2,7 +2,7 @@ import React from 'react';
 
 import './address-card.styles.scss';
 
-const AddressCard = ({ address }) => {
+const AddressCard = ({ city, zipCode, city }) => {
   const { city, zipCode, city } = address;
 
   return (

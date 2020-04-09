@@ -7,6 +7,7 @@ import './register-form.styles.scss';
 import VidFormInput from '../form-input/form-input.component';
 import CustomButton from '../../general/custom-button/custom-button.component';
 import AddressForm from '../address-form/address-form.component.jsx';
+import AddressSummary from '../../application/address/address-summary/address-summary.component';
 
 const RegisterForm = () => {
   const [addAddress, setAddAddress] = useState(false);
@@ -15,12 +16,19 @@ const RegisterForm = () => {
   const [savedAddress, setSavedAddress] = useState({
     city: '',
     zipCode: '',
-    street: ''
+    street: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: ''
   });
 
+  // const getAddAddressLabel = () => addressAdded 
+  //   ? savedAddress.city + ', ' + savedAddress.street + ', ' + savedAddress.zipCode + ' (EDIT)' 
+  //   : 'ADD DELIVERY ADDRESS (OPTIONAL)'; 
+
   const getAddAddressLabel = () => addressAdded 
-    ? savedAddress.city + ', ' + savedAddress.street + ', ' + savedAddress.zipCode + ' (EDIT)' 
-    : 'ADD DELIVERY ADDRESS (OPTIONAL)'; 
+  ? '(EDIT)'
+  : 'ADD DELIVERY ADDRESS (OPTIONAL)'; 
 
   const getRegisterBtnLabel = () => addAddress ? 'SAVE ADDRESS FIRST' : 'REGISTER';
 
@@ -44,7 +52,10 @@ const RegisterForm = () => {
     initialValues: {
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: ''
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -55,20 +66,35 @@ const RegisterForm = () => {
         .min(3, 'Password must be at least 3 characters long')
         .max(20, 'Password lenght cannot exceed 20 characters'),
       confirmPassword: Yup.string()
-        .test('match-passwords', 'Passwords must match', value => formik.values.password === value)
+        .test('match-passwords', 'Passwords must match', value => formik.values.password === value),
+      firstName: Yup.string()
+        .required('Fist name is required'),
+      lastName: Yup.string()
+        .required('Last name is required'),
+      phoneNumber: Yup.string()
+        .required('Phone number is required')
+        .matches('^[0-9]{9}$', 'Invalid phone number')
     }),
     onSubmit: values => console.log(values)
   });
 
   return (
     <div className='register-form-contanier'>
+      <h2> REGISTER </h2>
       <form onSubmit={ formik.handleSubmit } className='register-form' id='register-form'>
         <VidFormInput formik={ formik } name='email' label='Email' />
         <VidFormInput formik={ formik } name='password' label='Password' type='password' />
-        <VidFormInput formik={ formik } name='confirmPassword' label='Confirm Password' type='password' />        
+        <VidFormInput formik={ formik } name='confirmPassword' label='Confirm Password' type='password' />
+        <VidFormInput formik={ formik } name='firstName' label='First Name' />
+        <VidFormInput formik={ formik } name='lastName' label='Last Name' />
+        <VidFormInput formik={ formik } name='phoneNumber' label='Phone Number' />        
       </form>
       <div className='add-address-register'>
         <div> ADDRESS (OPTIONAL) </div>
+        {
+          addressAdded &&
+          <AddressSummary address={ savedAddress } />
+        }
         {
           !addAddress &&
           <CustomButton 
@@ -94,7 +120,18 @@ const RegisterForm = () => {
                   />
                 }
               </div>
-              <AddressForm submitForm={ values => addressFormHandleSubmit(values) } address={ savedAddress } />
+              <AddressForm 
+                submitForm={ values => addressFormHandleSubmit(values) } 
+                address={ addressAdded 
+                  ? savedAddress 
+                  : { firstName: formik.values.firstName, 
+                      lastName: formik.values.lastName, 
+                      phoneNumber: formik.values.phoneNumber,
+                      zipCode: '',
+                      street: '',
+                      city: ''
+                  }} 
+              />
             </div>
           )
         }
