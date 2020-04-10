@@ -2,13 +2,15 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 
 import './login-form.styles.scss';
 
 import VidFormInput from '../form-input/form-input.component';
 import CustomButton from '../../general/custom-button/custom-button.component';
+import { loginStart } from '../../../redux/auth/auth.actions';
 
-const LoginForm = () => {
+const LoginForm = ({ loginStart }) => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -21,7 +23,7 @@ const LoginForm = () => {
       password: Yup.string()
         .required('Password is required')
     }),
-    onSubmit: values => console.log(values)
+    onSubmit: values => loginStart(values)
   });
 
   return (
@@ -41,4 +43,8 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm;
+const mapDispatchToProps = dispatch => ({
+  loginStart: loginData => dispatch(loginStart(loginData))
+}) 
+
+export default connect(null, mapDispatchToProps)(LoginForm);

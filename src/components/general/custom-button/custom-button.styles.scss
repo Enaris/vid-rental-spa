@@ -1,6 +1,7 @@
 @import '../../../sass/colors';
 
 .custom-button {
+  border-radius: 0;
   border: none;
   background-color: $titan-white;
   cursor: pointer;
@@ -15,4 +16,5 @@
     color: $disabled-btn-txt;
     cursor: unset;
   }
+
 }

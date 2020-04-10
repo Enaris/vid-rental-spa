@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 
 import './register-form.styles.scss';
 
@@ -9,7 +10,13 @@ import CustomButton from '../../general/custom-button/custom-button.component';
 import AddressForm from '../address-form/address-form.component.jsx';
 import AddressSummary from '../../application/address/address-summary/address-summary.component';
 
-const RegisterForm = () => {
+import { registerStart } from '../../../redux/auth/auth.actions';
+import { 
+  getAddAddressLabel, 
+  getRegisterBtnLabel 
+} from './register-form.utils';
+
+const RegisterForm = ({ registerStart }) => {
   const [addAddress, setAddAddress] = useState(false);
   const [addressAdded, setAddressAdded] = useState(false);
 
@@ -21,16 +28,6 @@ const RegisterForm = () => {
     lastName: '',
     phoneNumber: ''
   });
-
-  // const getAddAddressLabel = () => addressAdded 
-  //   ? savedAddress.city + ', ' + savedAddress.street + ', ' + savedAddress.zipCode + ' (EDIT)' 
-  //   : 'ADD DELIVERY ADDRESS (OPTIONAL)'; 
-
-  const getAddAddressLabel = () => addressAdded 
-  ? '(EDIT)'
-  : 'ADD DELIVERY ADDRESS (OPTIONAL)'; 
-
-  const getRegisterBtnLabel = () => addAddress ? 'SAVE ADDRESS FIRST' : 'REGISTER';
 
   const addressFormHandleSubmit = ( values ) => {
     setSavedAddress(values); 
@@ -46,6 +43,17 @@ const RegisterForm = () => {
     setSavedAddress({ city: '', zipCode: '', street: '' });
     setAddressAdded(false);
     setAddAddress(false);
+  }
+
+  const getRegisterData = () => {
+    const registerData = ({
+      ...formik.values,
+      addressAdded,
+      address: !addressAdded ? null : {
+        ...savedAddress
+      }
+    })
+    return registerData;
   }
 
   const formik = useFormik({
@@ -75,7 +83,7 @@ const RegisterForm = () => {
         .required('Phone number is required')
         .matches('^[0-9]{9}$', 'Invalid phone number')
     }),
-    onSubmit: values => console.log(values)
+    onSubmit: () => registerStart(getRegisterData())
   });
 
   return (
@@ -99,7 +107,7 @@ const RegisterForm = () => {
           !addAddress &&
           <CustomButton 
             className='w100'
-            label={ getAddAddressLabel() }
+            label={ getAddAddressLabel(addressAdded) }
             onClick={ e => setAddAddress(true) }
           />
         }
@@ -139,7 +147,7 @@ const RegisterForm = () => {
       <CustomButton 
         className='w100' 
         type='submit' 
-        label={ getRegisterBtnLabel() }
+        label={ getRegisterBtnLabel(addressAdded) }
         form='register-form' 
         disabled={ addAddress }
       />
@@ -147,4 +155,8 @@ const RegisterForm = () => {
   )
 }
 
-export default RegisterForm;
+const mapDispatchToProps = dispatch => ({
+  registerStart: registerData => dispatch(registerStart(registerData))
+})
+
+export default connect(null, mapDispatchToProps)(RegisterForm);
