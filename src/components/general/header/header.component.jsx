@@ -1,14 +1,30 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
 import './header.syles.scss';
+import { selectCurrentUser } from '../../../redux/auth/auth.selectors';
+import { logout } from '../../../redux/auth/auth.actions';
 
-const Header = () => (
+const Header = ({ user, logout }) => (
   <nav className='header'>
     <NavLink exact className='header-link' activeClassName='header-link-active' to='/'> HOME </NavLink>
     <NavLink exact className='header-link' activeClassName='header-link-active' to='/cartridges'> BROWSE </NavLink>
-    <NavLink exact className='header-link' activeClassName='header-link-active' to='/login'> LOGIN </NavLink>
+    {
+      user 
+      ? <Link className='header-link' to='/' onClick={() => logout()}> LOGOUT </Link>
+      : <NavLink exact className='header-link' activeClassName='header-link-active' to='/login'> LOGIN </NavLink>
+    }
   </nav>
 );
 
-export default Header;
+const mapStateToProps = createStructuredSelector({
+  user: selectCurrentUser
+});
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
