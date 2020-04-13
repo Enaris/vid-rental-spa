@@ -1,4 +1,5 @@
 import AuthActionTypes from './auth.types';
+import axios from 'axios';
 
 const INITIAL_STATE = {
   currentUser: null,
@@ -29,6 +30,40 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
           token: null,
           errors: action.payload.errors
         }
+    case AuthActionTypes.SAVE_TOKEN:
+      sessionStorage.setItem('userToken', action.payload);
+      axios.defaults.headers.common = {
+        'Authorization': `Bearer ${ action.payload }`
+      };
+      return {
+        ...state,
+        token: action.payload
+      }
+    case AuthActionTypes.LOGOUT:
+      sessionStorage.removeItem('userToken');
+      axios.defaults.headers.common = {
+        'Authorization': ''
+      };
+      return {
+        ...state,
+        token: null,
+        currentUser: null
+      }
+    case AuthActionTypes.CHECK_TOKEN_FAILURE:
+      sessionStorage.removeItem('userToken');
+      axios.defaults.headers.common = {
+        'Authorization': ''
+      };
+      return {
+        ...state,
+        token: null,
+        currentUser: null
+      }
+    case AuthActionTypes.CHECK_TOKEN_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload.data.user
+      }
     default:
       return state;
   }

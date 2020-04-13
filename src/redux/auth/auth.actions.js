@@ -28,3 +28,26 @@ export const registerFailure = errors => ({
   type: AuthActionTypes.REGISTER_FAILURE,
   payload: errors
 });
+
+export const saveToken = token => ({
+  type: AuthActionTypes.SAVE_TOKEN,
+  payload: token
+});
+
+export const checkTokenStart = token => ({
+  type: AuthActionTypes.CHECK_TOKEN_START,
+  payload: token
+});
+
+export const checkTokenSuccess = result => ({
+  type: AuthActionTypes.CHECK_TOKEN_SUCCESS,
+  payload: result
+});
+
+export const checkTokenFailure = () => ({
+  type: AuthActionTypes.CHECK_TOKEN_FAILURE
+});
+
+export const logout = () => ({
+  type: AuthActionTypes.LOGOUT
+})

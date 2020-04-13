@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './App.scss';
 
@@ -10,7 +11,12 @@ import LoginPage from './pages/login-page/login-page.component';
 import BrowseCartridgesPage from './pages/browse-cartridges/browse-cartridges.component';
 import CartridgeDetails from './pages/cartridge-details/cartridge-details.component.jsx';
 
-function App() {
+import { checkTokenStart } from './redux/auth/auth.actions';
+
+function App({ checkTokenStart }) {
+  useEffect(() => {
+    checkTokenStart(sessionStorage.getItem('userToken'))
+  }, [checkTokenStart]);
   return (
     <div className="App">
       <Header />
@@ -25,4 +31,8 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  checkTokenStart: token => dispatch(checkTokenStart(token))
+});
+
+export default connect(null, mapDispatchToProps)(App);
