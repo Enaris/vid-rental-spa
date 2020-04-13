@@ -1,0 +1,14 @@
+@import '../../../sass/colors';
+
+.left-panel-container {
+  display: flex;
+  max-height: 100%;
+
+  .left-panel {
+    display: flex;
+    position: absolute;
+    background-color: $bg-dark;
+    width: 20vw;
+    
+  }
+}

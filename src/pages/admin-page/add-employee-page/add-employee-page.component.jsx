@@ -11,4 +11,4 @@ const AddEmployeePage = () => {
   )
 }
 
-export const AddEmployeePage;
+export default AddEmployeePage;

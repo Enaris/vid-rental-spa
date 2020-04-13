@@ -11,4 +11,4 @@ const OrderHistoryPage = () => {
   )
 }
 
-export const OrderHistoryPage;
+export default OrderHistoryPage;
