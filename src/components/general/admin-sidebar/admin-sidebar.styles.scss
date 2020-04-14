@@ -1,0 +1,28 @@
+@import '../../../sass/colors';
+
+.admin-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+
+  .sidebar-link {
+    color: $melrose;
+    text-decoration: none;
+    width: 100%;
+    margin-top: 10px;
+    
+    &.sidebar-link-active {
+      font-weight: bold;
+      color: $titan-white;
+    }
+
+    &:first-child {
+      margin-top: 0px;
+    }
+
+    &:hover {
+      color: $periwinkle;
+    }
+  }
+}

@@ -12,11 +12,12 @@ import BrowseCartridgesPage from './pages/browse-cartridges/browse-cartridges.co
 import CartridgeDetails from './pages/cartridge-details/cartridge-details.component.jsx';
 import AdminPage from './pages/admin-page/admin-page.component';
 
-import LeftPanel from './components/general/left-panel/left-panel.component';
-
 import { checkTokenStart } from './redux/auth/auth.actions';
+import AuthRoute from './components/general/auth-route/auth-route.component';
+import NonAuthRoute from './components/general/non-auth-route/non-auth-route.component';
+import UserRoles from './redux/api/api.user-roles';
 
-function App({ checkTokenStart }) {
+function App({ checkTokenStart, loading }) {
   useEffect(() => {
     checkTokenStart(sessionStorage.getItem('userToken'))
   }, [checkTokenStart]);
@@ -25,12 +26,25 @@ function App({ checkTokenStart }) {
       <Header />
       <div className='page-container'>
         <Switch >
-          <Route exact path='/admin' component={ AdminPage } />
-          <Route exact path='/login' component={ LoginPage } />
-          <Route exact path='/register' component={ RegisterPage } />
+          <NonAuthRoute exact 
+            path='/login' 
+            redirectTo='/'
+            Component={ LoginPage } 
+            />
+          <NonAuthRoute exact 
+            path='/register' 
+            redirectTo='/'
+            Component={ RegisterPage } 
+            />
           <Route exact path='/cartridges/:id' component={ CartridgeDetails } />
           <Route exact path='/cartridges' component={ BrowseCartridgesPage } />
           <Route exact path='/' component={ Homepage } />
+          <AuthRoute 
+            path='/admin' 
+            requiredRole={ UserRoles.Admin }
+            redirectTo='/'
+            Component={ AdminPage } 
+            />
         </Switch>
       </div>
     </div>
