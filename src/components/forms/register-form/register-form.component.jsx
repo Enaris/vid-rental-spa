@@ -16,9 +16,7 @@ import {
   getRegisterBtnLabel 
 } from './register-form.utils';
 
-import { selectLoading } from '../../../redux/auth/auth.selectors';
-
-const RegisterForm = ({ registerStart, selectLoading }) => {
+const RegisterForm = ({ registerStart }) => {
   const [addAddress, setAddAddress] = useState(false);
   const [addressAdded, setAddressAdded] = useState(false);
 

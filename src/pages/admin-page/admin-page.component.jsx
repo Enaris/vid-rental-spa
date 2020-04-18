@@ -1,9 +1,10 @@
 import React from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { Switch, useRouteMatch } from 'react-router-dom';
 
 import './admin-page.styles.scss';
 import LeftPanel from '../../components/general/left-panel/left-panel.component';
 import EmployeeListPage from './employee-list-page/employee-list-page.component';
+import EmployeeAddPage from './add-employee-page/add-employee-page.component';
 import OrderHistoryPage from '../order-history-page/order-history-page.component';
 import AdminSidebar from '../../components/general/admin-sidebar/admin-sidebar.component';
 import UserRoles from '../../redux/api/api.user-roles';
@@ -21,6 +22,12 @@ const AdminPage = () => {
           <AuthRoute exact 
             path={`${path}/employees`} 
             Component={ EmployeeListPage } 
+            requiredRole={ UserRoles.Admin }
+            redirectTo='/'
+          />
+          <AuthRoute exact 
+            path={`${path}/employees/add`} 
+            Component={ EmployeeAddPage } 
             requiredRole={ UserRoles.Admin }
             redirectTo='/'
           />

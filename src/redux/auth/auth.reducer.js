@@ -71,7 +71,7 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
     case AuthActionTypes.CHECK_TOKEN_START:
       return {
         ...state,
-        loading: false
+        loading: true
       }
     case AuthActionTypes.CHECK_TOKEN_FAILURE:
       sessionStorage.removeItem('userToken');

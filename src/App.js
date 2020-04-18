@@ -16,14 +16,21 @@ import { checkTokenStart } from './redux/auth/auth.actions';
 import AuthRoute from './components/general/auth-route/auth-route.component';
 import NonAuthRoute from './components/general/non-auth-route/non-auth-route.component';
 import UserRoles from './redux/api/api.user-roles';
+import { selectLoading } from './redux/auth/auth.selectors';
+import { createStructuredSelector } from 'reselect';
 
 function App({ checkTokenStart, loading }) {
   useEffect(() => {
-    checkTokenStart(sessionStorage.getItem('userToken'))
+    const token = sessionStorage.getItem('userToken');
+    if(token) {
+      checkTokenStart(token)
+    }
   }, [checkTokenStart]);
   return (
     <div className="App">
       <Header />
+      {
+        loading ? <p> Ima loading now </p> :
       <div className='page-container'>
         <Switch >
           <NonAuthRoute exact 
@@ -47,6 +54,7 @@ function App({ checkTokenStart, loading }) {
             />
         </Switch>
       </div>
+      }
     </div>
   );
 }
@@ -55,4 +63,8 @@ const mapDispatchToProps = dispatch => ({
   checkTokenStart: token => dispatch(checkTokenStart(token))
 });
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = createStructuredSelector({
+  loading: selectLoading
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

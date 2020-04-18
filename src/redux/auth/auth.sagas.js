@@ -11,7 +11,8 @@ import {
   registerFailure,
   saveToken,
   checkTokenSuccess,
-  checkTokenFailure
+  checkTokenFailure,
+  loginStart
 } from './auth.actions';
 
 export function* login({ payload }) {
@@ -33,9 +34,13 @@ export function* login({ payload }) {
 export function* register({ payload }) {
   try {
     const registerResult = yield call(axios.post, staticUrls.register, payload);
-    registerResult.data.succeeded 
-    ? yield put(registerSuccess(registerResult.data))
-    : yield put(registerFailure(registerResult.errors))
+    if (registerResult.data.succeeded) {
+      yield put(registerSuccess(registerResult.data));
+      yield put(loginStart({ email: payload.email, password: payload.password}));
+    }
+    else {
+      yield put(registerFailure(registerResult.errors));
+    }
   }
   catch (error) {
     yield put(registerFailure(error));
@@ -46,8 +51,8 @@ export function* checkToken({ payload }) {
   try {
     const checkResult = yield call(axios.post, staticUrls.refreshToken, { token: payload });
     if (checkResult.data.succeeded) {
-      yield put(checkTokenSuccess(checkResult.data));
       yield put(saveToken(checkResult.data.data.token));
+      yield put(checkTokenSuccess(checkResult.data));
     }
     else {
       yield put(checkTokenFailure(checkResult.data));
