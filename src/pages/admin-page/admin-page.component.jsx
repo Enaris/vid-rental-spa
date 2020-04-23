@@ -17,34 +17,34 @@ const AdminPage = () => {
       <LeftPanel>
         <AdminSidebar />
       </LeftPanel>
-      <div className='content-container'>
-        <Switch>
-          <AuthRoute exact 
-            path={`${path}/employees`} 
-            Component={ EmployeeListPage } 
-            requiredRole={ UserRoles.Admin }
-            redirectTo='/'
-          />
-          <AuthRoute exact 
-            path={`${path}/employees/add`} 
-            Component={ EmployeeAddPage } 
-            requiredRole={ UserRoles.Admin }
-            redirectTo='/'
-          />
-          <AuthRoute exact 
-            path={`${path}/orders`} 
-            Component={ OrderHistoryPage }
-            requiredRole={ UserRoles.Admin }
-            redirectTo='/'
-          />
-          <AuthRoute exact 
-            path={`${path}`}
-            requiredRole={ UserRoles.Admin }
-            redirectTo='/'
-            Component={() => <div> Hi Admin </div>}
-          />
-        </Switch>
-      </div>
+        <div className='content-container'>
+          <Switch>
+            <AuthRoute exact 
+              path={`${path}/employees`} 
+              Component={ EmployeeListPage } 
+              requiredRole={ UserRoles.Admin }
+              redirectTo='/'
+            />
+            <AuthRoute exact 
+              path={`${path}/employees/add`} 
+              Component={ EmployeeAddPage } 
+              requiredRole={ UserRoles.Admin }
+              redirectTo='/'
+            />
+            <AuthRoute exact 
+              path={`${path}/orders`} 
+              Component={ OrderHistoryPage }
+              requiredRole={ UserRoles.Admin }
+              redirectTo='/'
+            />
+            <AuthRoute exact 
+              path={`${path}`}
+              requiredRole={ UserRoles.Admin }
+              redirectTo='/'
+              Component={() => <div> Hi Admin </div>}
+            />
+          </Switch>
+        </div>
     </div>
   )
 }

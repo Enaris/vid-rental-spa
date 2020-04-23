@@ -7,7 +7,9 @@ const AddEmployeePage = () => {
 
   return (
     <div className='add-employee-page'>
-      <EmployeeForm />
+      <div className='small-content-container'>
+        <EmployeeForm />
+      </div>
     </div>
   )
 }

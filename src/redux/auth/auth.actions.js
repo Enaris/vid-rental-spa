@@ -51,3 +51,8 @@ export const checkTokenFailure = () => ({
 export const logout = () => ({
   type: AuthActionTypes.LOGOUT
 })
+
+export const saveUser = user => ({
+  type: AuthActionTypes.SAVE_USER,
+  payload: user
+});

@@ -7,7 +7,8 @@ const staticUrls = {
   register: `${auth}/register`,
   refreshToken: `${auth}/refreshtoken`,
 
-  employees: `${admin}/employees`
+  employees: `${admin}/employees`,
+  addEmployee: `${admin}/employees/add`
 }
 
 export default staticUrls;

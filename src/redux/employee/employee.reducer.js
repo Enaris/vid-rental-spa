@@ -3,7 +3,8 @@ import employeeActionTypes from './employee.types';
 const INITIAL_STATE = {
   employees: [],
   errors: null,
-  employeesLoading: false
+  employeesLoading: false,
+  employeeAdding: false
 }
 
 const EmployeeReducer = (state = INITIAL_STATE, action) => {
@@ -27,6 +28,24 @@ const EmployeeReducer = (state = INITIAL_STATE, action) => {
         employees: null,
         employeesLoading: false
       }
+    case employeeActionTypes.ADD_EMPLOYEE_START: 
+      return {
+        ...state, 
+        employeeAdding: true
+      }
+    case employeeActionTypes.ADD_EMPLOYEE_SUCCESS: 
+      return {
+        ...state, 
+        employeeAdding: false
+      }
+    case employeeActionTypes.ADD_EMPLOYEE_FAILURE: 
+      return {
+        ...state, 
+        employeeAdding: false,
+        errors: action.payload
+      }
+    
+
     default:
       return state;
   }

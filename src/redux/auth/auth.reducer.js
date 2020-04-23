@@ -5,7 +5,9 @@ const INITIAL_STATE = {
   currentUser: null,
   errors: null,
   token: null,
-  loading: false
+  tokenLoading: true,
+  userLoading: false, 
+  registerLoading: false
 }
 
 const AuthReducer = (state = INITIAL_STATE, action) => {
@@ -13,28 +15,28 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
     case AuthActionTypes.LOGIN_START:
       return {
         ...state, 
-        loading: true
+        userLoading: true
       }
     case AuthActionTypes.LOGIN_SUCCESS:
       const { user, token } = action.payload.data;  
       return {
-          ...state,
-          currentUser: user,
-          token,
-          loading: false
-        }
+        ...state,
+        currentUser: user,
+        token,
+        userLoading: false
+      }
     case AuthActionTypes.LOGIN_FAILURE:
       return {
-          ...state,
-          currentUser: null,
-          token: null,
-          errors: action.payload.errors,
-          loading: false
-        }
+        ...state,
+        currentUser: null,
+        token: null,
+        errors: action.payload.errors,
+        userLoading: false
+      }
     case AuthActionTypes.REGISTER_START:
       return {
         ...state, 
-        loading: false
+        registerLoading: false
       }
     case AuthActionTypes.REGISTER_FAILURE:
       return {
@@ -42,12 +44,12 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
         currentUser: null,
         token: null,
         errors: action.payload.errors, 
-        loading: false
+        registerLoading: false
       }
     case AuthActionTypes.REGISTER_SUCCESS:
       return {
         ...state,
-        loading: false
+        registerLoading: false
       }
     case AuthActionTypes.SAVE_TOKEN:
       sessionStorage.setItem('userToken', action.payload);
@@ -57,6 +59,11 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         token: action.payload
+      }
+    case AuthActionTypes.SAVE_USER:
+      return {
+        ...state,
+        currentUser: action.payload
       }
     case AuthActionTypes.LOGOUT:
       sessionStorage.removeItem('userToken');
@@ -71,7 +78,7 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
     case AuthActionTypes.CHECK_TOKEN_START:
       return {
         ...state,
-        loading: true
+        tokenLoading: true
       }
     case AuthActionTypes.CHECK_TOKEN_FAILURE:
       sessionStorage.removeItem('userToken');
@@ -82,13 +89,12 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
         ...state,
         token: null,
         currentUser: null,
-        loading: false
+        tokenLoading: false
       }
     case AuthActionTypes.CHECK_TOKEN_SUCCESS:
       return {
         ...state,
-        currentUser: action.payload.data.user,
-        loading: false
+        tokenLoading: false
       }
     default:
       return state;

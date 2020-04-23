@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 
 import './employee-form.styles.scss';
 
 import VidFormInput from '../form-input/form-input.component';
 import CustomButton from '../../general/custom-button/custom-button.component';
+import { addEmployeeStart } from '../../../redux/employee/employee.actions'; 
 
-const EmployeeForm = () => {
+const EmployeeForm = ({ addEmployeeStart }) => {
 
   const formik = useFormik({
     initialValues: {
@@ -36,7 +38,7 @@ const EmployeeForm = () => {
         .required('Phone number is required')
         .matches('^[0-9]{9}$', 'Invalid phone number')
     }),
-    onSubmit: () => console.log('ok')
+    onSubmit: values => addEmployeeStart(values)
   });
 
   return (
@@ -60,4 +62,8 @@ const EmployeeForm = () => {
   )
 }
 
-export default EmployeeForm;
+const mapDispatchToProps = dispatch => ({
+  addEmployeeStart: employee => dispatch(addEmployeeStart(employee))
+});
+
+export default connect(null, mapDispatchToProps)(EmployeeForm);

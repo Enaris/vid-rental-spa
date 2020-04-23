@@ -9,7 +9,7 @@ export const selectCurrentUser = createSelector(
 
 export const selectLoading = createSelector(
   [selectAuth],
-  auth => auth.loading
+  auth => auth.userLoading || auth.tokenLoading || auth.registerLoading
 );
 
 export const selectUserRoles = createSelector(

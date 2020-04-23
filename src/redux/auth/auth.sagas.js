@@ -12,7 +12,8 @@ import {
   saveToken,
   checkTokenSuccess,
   checkTokenFailure,
-  loginStart
+  loginStart,
+  saveUser
 } from './auth.actions';
 
 export function* login({ payload }) {
@@ -48,10 +49,16 @@ export function* register({ payload }) {
 }
 
 export function* checkToken({ payload }) {
+  if (payload == null)
+  {
+    yield put(checkTokenSuccess(""));
+    return;
+  }
   try {
     const checkResult = yield call(axios.post, staticUrls.refreshToken, { token: payload });
     if (checkResult.data.succeeded) {
       yield put(saveToken(checkResult.data.data.token));
+      yield put(saveUser(checkResult.data.data.user));
       yield put(checkTokenSuccess(checkResult.data));
     }
     else {
