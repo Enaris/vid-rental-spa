@@ -8,6 +8,7 @@ const EmployeeSideBar = () => {
   return (
     <nav className='sidebar'>
       <NavLink exact className='sidebar-link' activeClassName='sidebar-link-active' to={`${url}/movies`}> MOVIES </NavLink>
+      <NavLink exact className='sidebar-link' activeClassName='sidebar-link-active' to={`${url}/movies/add`}> ADD MOVIE </NavLink>
       <NavLink exact className='sidebar-link' activeClassName='sidebar-link-active' to={`${url}/cartridges`}> CARTRIDGES </NavLink>
       <NavLink exact className='sidebar-link' activeClassName='sidebar-link-active' to={`${url}/orders`}> ORDERS </NavLink>
     </nav>
