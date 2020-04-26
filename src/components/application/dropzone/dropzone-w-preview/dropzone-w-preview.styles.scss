@@ -1,0 +1,16 @@
+.dropzone-w-preview {
+  
+  display: flex;
+  flex-direction: column;
+
+  .img-preview {
+    display: flex;
+    height: 500px;
+    justify-content: center;
+
+    img {
+      object-fit: contain;
+    }
+  }
+
+}

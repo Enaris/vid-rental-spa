@@ -1,0 +1,1 @@
+export const mbToKb = (mb) => mb * 1024 * 1024;
