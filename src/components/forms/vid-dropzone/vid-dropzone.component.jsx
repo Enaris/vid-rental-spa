@@ -3,7 +3,14 @@ import { useDropzone } from 'react-dropzone';
 
 import './vid-dropzone.styles.scss';
 
-const VidDropzone = ({ maxSize, multiple, acceptType, handleAccepted, handleRejected }) => {
+const VidDropzone = ({ 
+  maxSize, 
+  multiple, 
+  acceptType, 
+  label, 
+  handleAccepted, 
+  handleRejected, 
+  errorsOutsize = false }) => {
   const [errors, setErrors] = useState([]);
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     if (!rejectedFiles || rejectedFiles.length > 0) {
@@ -36,13 +43,21 @@ const VidDropzone = ({ maxSize, multiple, acceptType, handleAccepted, handleReje
   });
 
   return (
-    <div className='w100 vid-dropzone'>
+    <div className='w100 h100 vid-dropzone'>
       <div {...getRootProps({className: 'dropzone'})}>
         <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        {
+          label 
+          ? <p>{ label }</p>
+          : <p>Drag 'n' drop some files here, or click to select files</p>
+        }
+        {
+          errors && !errorsOutsize &&
+          errors.map(e => <div key={e.fileName}>{ e.error }</div>)
+        }
       </div>
       {
-        errors &&
+        errors && errorsOutsize &&
         errors.map(e => <div key={e.fileName}> {`${e.fileName}: ${e.error}`} </div>)
       }
     </div>

@@ -1,16 +1,70 @@
+@import '../../../../sass/colors';
+
 .dropzone-w-preview {
   
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  height: 100%;
 
-  .img-preview {
+  .preview-container{
     display: flex;
-    height: 500px;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: $bg-dark;
+    position: relative;
+    
+    .img-preview-x-btn {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      cursor: pointer;
+      color: $red-warning-text;
+      background-color: $titan-white;
+      padding: 0px 10px;
+      font-size: 20px;
+      font-weight: 900;
+      border-bottom: 1px solid $titan-white;
+      border-left: 1px solid $titan-white;
+      opacity: 0.5;
+    }
 
-    img {
-      object-fit: contain;
+    .img-preview {
+      display: flex;
+      max-width: 100%;
+
+      img {
+        height: 100%;
+      }
+
     }
   }
+}
 
+.modal-warp {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  
+  .modal {
+    object-fit: contain;
+    z-index: 10;
+  }
+
+  .modal-overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    opacity: 0.3;
+  }
 }

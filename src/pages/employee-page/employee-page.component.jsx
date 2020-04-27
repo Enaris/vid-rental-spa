@@ -10,6 +10,8 @@ import EmployeeCartridgesPage from './employee-cartridges-page/employee-cartridg
 import EmployeeMoviesPage from './employee-movies-page/employee-movies-page.component';
 import AuthRoute from '../../components/general/auth-route/auth-route.component';
 import OrderHistoryPage from '../order-history-page/order-history-page.component';
+import MovieEditPage from '../movie/movie-edit-page/movie-edit-page.component';
+
 
 const EmployeePage = () => {
   const { path } = useRouteMatch();
@@ -26,12 +28,21 @@ const EmployeePage = () => {
               requiredRole={ UserRoles.Employee }
               redirectTo='/'
             />
+            
             <AuthRoute exact 
               path={`${path}/movies/add`} 
               Component={ MovieAddPage } 
               requiredRole={ UserRoles.Employee }
               redirectTo='/'
             />
+
+            <AuthRoute exact 
+              path={`${path}/movies/:id/edit`} 
+              Component={ MovieEditPage } 
+              requiredRole={ UserRoles.Employee }
+              redirectTo='/'
+            />
+
             <AuthRoute exact 
               path={`${path}/cartridges`} 
               Component={ EmployeeCartridgesPage } 
