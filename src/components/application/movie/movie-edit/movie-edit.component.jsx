@@ -1,16 +1,33 @@
 import React, { useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 import './movie-edit.styles.scss';
 import ImageEditList from '../../../application/image-edit-list/image-edit-list.component';
 import MultiDropzone from '../../dropzone/multi-dropzone-w-preview/multi-dropzone-w-preview.component';
 import DropzoneWithPreview from '../../dropzone/dropzone-w-preview/dropzone-w-preview.component';
 import VidRichTextbox from '../../../general/vid-rich-textbox/vid-rich-textbox.component';
+import CustomButton from '../../../general/custom-button/custom-button.component';
+import VidFormInput from '../../../forms/form-input/form-input.component';
 
 const MovieEdit = ({ movie }) => {
+  const { title, images, description, director } = movie;
+  
+  const formik = useFormik({
+    initialValues: {
+      title: title,
+      director: director,
+    },
+    validationSchema: Yup.object({
+      title: Yup.string()
+        .required('Title is required'),
+    }),
+    onSubmit: values => console.log(values)
+  });
+
   const [ newImages, setNewImages ] = useState([]);
   const [ removedImages, setRemovedImages ] = useState([]);
 
-  const { title, images, description, director } = movie;
   const cover = images.find(i => i.type === 'cover');
   const coverUrl = cover ? cover.url : '';
 
@@ -36,15 +53,16 @@ const MovieEdit = ({ movie }) => {
   }
 
   return (
-    <div className='movie-edit'>
+    <form className='movie-edit'>
       <div className='movie-edit-main'>
         <div className='movie-cover'>
           <DropzoneWithPreview initImage={ coverUrl }/>
         </div>
         <div className='movie-details'>
-          <h2 className='movie-title'>{ title }</h2>
-          <h3 className='movie-director'>Director: { director }</h3>
+          <VidFormInput formik={ formik } name='title' label='Title' />
+          <VidFormInput formik={ formik } name='director' label='Director' />
           <div className='movie-desc'>
+            Description:
             <VidRichTextbox initialVal={ description } />
           </div>
         </div>
@@ -62,7 +80,8 @@ const MovieEdit = ({ movie }) => {
           </div>
         </div>
       </div>
-    </div>
+      <CustomButton type='submit' label='SAVE'  />
+    </form>
   )
 }
 
