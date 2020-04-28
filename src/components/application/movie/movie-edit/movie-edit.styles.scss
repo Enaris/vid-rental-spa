@@ -2,21 +2,46 @@
   display: flex;
   width: 100%;
   height: 100%;
+  flex-direction: column;
 
-  .movie-cover {
-    width: 351px;
-    height: 520px;
-  }
-
-  .movie-details {
+  .movie-edit-main {
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    height: 100%;
+    flex-direction: row;
 
-    .movie-title {
-      margin-bottom: 2rem;
-      text-align: center;
+    .movie-cover {
+      width: 351px;
+      height: 520px;
+      display: flex;
+      flex-shrink: 0;
+    }
+  
+    .movie-details {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      height: 100%;
+  
+      .movie-desc {
+        margin: 5px;
+      }
+  
+      .movie-title {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
     }
   }
+
+  .movie-edit-images {
+    .edit-images {
+      display: flex;
+      flex-wrap: wrap;
+  
+      .new-image {
+        width: 320px;
+        height: 180px;
+      }
+    }
+  }
+  
 }

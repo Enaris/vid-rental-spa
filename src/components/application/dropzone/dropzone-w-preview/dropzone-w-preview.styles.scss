@@ -15,7 +15,7 @@
     height: 100%;
     background-color: $bg-dark;
     position: relative;
-    
+
     .img-preview-x-btn {
       position: absolute;
       right: 0px;
@@ -31,40 +31,6 @@
       opacity: 0.5;
     }
 
-    .img-preview {
-      display: flex;
-      max-width: 100%;
-
-      img {
-        height: 100%;
-      }
-
-    }
-  }
-}
-
-.modal-warp {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  z-index: 10;
-  
-  .modal {
-    object-fit: contain;
-    z-index: 10;
-  }
-
-  .modal-overlay {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 100vh;
-    width: 100vw;
-    background-color: white;
-    opacity: 0.3;
+    
   }
 }

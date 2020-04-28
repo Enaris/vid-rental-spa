@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import './dropzone-w-preview.styles.scss';
 
 import VidDropzone from '../../../forms/vid-dropzone/vid-dropzone.component';
+import ImageWZoom from '../../../general/image-w-zoom/image-w-zoom.component';
 
 
 const DropzoneWithPreview = ({ maxSize, label, initImage, onRemove }) => {
   const [image, setImage] = useState(null); 
-  const [showLarge, setShowLarge] = useState(false);
 
   useEffect(() => {
     if (initImage)
@@ -32,9 +32,7 @@ const DropzoneWithPreview = ({ maxSize, label, initImage, onRemove }) => {
         image ?
         <div className='preview-container'>
           <div className='img-preview-x-btn' onClick={() => onXClick()}>X</div>
-          <div className='img-preview'>
-            <img src={image} alt='dropped' onClick={() => setShowLarge(true)} />
-          </div>
+          <ImageWZoom imageUrl={ image } />
         </div>
         :
         <VidDropzone 
@@ -45,13 +43,6 @@ const DropzoneWithPreview = ({ maxSize, label, initImage, onRemove }) => {
           handleAccepted={ onDrop } 
           handleRejected={ () => setImage(null) }
         />
-      }
-      {
-        showLarge &&
-        <div className='modal-warp' onClick={() => setShowLarge(false)}>
-          <div className='modal-overlay'></div>
-          <img src={ image } className='modal' alt='dropped Large' />
-        </div>
       }
     </div>
   )

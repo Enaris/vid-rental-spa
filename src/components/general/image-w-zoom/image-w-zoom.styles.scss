@@ -1,0 +1,29 @@
+.img-w-zoom-container {
+  display: flex;
+  width: 100%;
+
+  .img-w-zoom {
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    justify-content: center;
+
+    img {
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+.zoom-modal-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  justify-content: center;
+
+  .zoom-modal-img {
+    object-fit: contain;
+    max-width: 100%;
+  }
+}

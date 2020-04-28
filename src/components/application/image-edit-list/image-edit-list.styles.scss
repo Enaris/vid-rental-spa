@@ -1,0 +1,25 @@
+@import '../../../sass/colors';
+
+.image-edit-list {
+
+  display: flex;
+  position: relative;
+  width: 320px;
+  height: 180px;
+  border: 1px solid $titan-white;
+
+  .image-edit-list-btn {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    cursor: pointer;
+    color: $red-warning-text;
+    background-color: $titan-white;
+    padding: 0px 10px;
+    font-size: 20px;
+    font-weight: 900;
+    border-bottom: 1px solid $titan-white;
+    border-left: 1px solid $titan-white;
+    opacity: 0.5;
+  }
+}
