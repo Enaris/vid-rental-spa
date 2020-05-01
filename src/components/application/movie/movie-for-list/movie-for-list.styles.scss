@@ -1,0 +1,46 @@
+@import '../../../../sass/colors';
+
+.movie-for-list {
+  height: 160px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid $titan-white;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  .movie-for-list-thumbnail {
+    background-color: $bg-dark;
+    height: 100%;
+    width: 108px;
+    display: flex;
+    justify-content: center;
+
+    .thumbnail-img {
+      max-width: 100%;
+      display: flex;
+      object-fit: contain;
+    }
+  }
+
+  .movie-for-list-text {
+
+    .movie-for-list-title {
+      margin-left: 5px;
+      text-decoration: none;
+      color: $melrose;
+
+      .movie-for-list-link {
+        text-decoration: none;
+        color: $melrose;
+
+        &:hover {
+          color: $periwinkle;
+        }
+      }
+    }
+  }
+}

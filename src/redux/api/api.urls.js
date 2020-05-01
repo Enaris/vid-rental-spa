@@ -1,4 +1,5 @@
 export const base = 'http://localhost:5000'; 
+export const statics = `${base}/Static`;
 export const api = `${base}/api`;
 export const auth = `${api}/auth`;
 export const admin = `${api}/admin`;
@@ -13,7 +14,9 @@ const staticUrls = {
   addEmployee: `${admin}/employees/add`,
 
   movies: movie,
-  addMovie: `${movie}/add`
+  addMovie: `${movie}/add`,
+
+  noCoverImageUrl: `${statics}/Images/MoviesDefaults/NoCover.jpg`
 }
 
 export const getImageSrc = relativePath => relativePath ? `${base}/${relativePath}` : null;

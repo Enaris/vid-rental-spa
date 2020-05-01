@@ -12,6 +12,7 @@ import VidFormTextarea from '../../../forms/form-textarea/form-textarea.componen
 import { updateMovieStart } from '../../../../redux/movie/movie.actions'; 
 import { getImageSrc } from '../../../../redux/api/api.urls';
 import ImageList from '../../image-list/image-list.component';
+import ImageForEditList from '../../image-for-edit-list/image-for-edit-list.component';
 
 const MovieEdit = ({ movie, updateMovieStart }) => {
   const [ imageErrors, setImageErrors ] = useState([]);
@@ -37,15 +38,19 @@ const MovieEdit = ({ movie, updateMovieStart }) => {
   const [ newImages, setNewImages ] = useState([]);
   const [ newImageFiles, setNewImageFiles] = useState([]);
   const [ newCover, setNewCover ] = useState(null);
+  const [ removedCover, setRemovedCover ] = useState(null);
   const [ removedImages, setRemovedImages ] = useState([]);
 
   const getUpdateData = () => {
+    const removed = removedImages.map(ri => ri.id);
+    if (removedCover)
+      removed.push(removedCover.id); 
     return {
       ...formik.values,
       id,
       newImages: newImageFiles,
       newCover,
-      removedImages: removedImages.map(ri => ri.id),
+      removedImages: removed,
     }
   }
 
@@ -73,8 +78,24 @@ const MovieEdit = ({ movie, updateMovieStart }) => {
   const handleDropCover = image => {
     setNewCover(image);
   }
+
   const handleXCover = () => {
     setNewCover(null);
+    if (cover)
+      setRemovedCover(cover);
+  }
+
+  const handleUndoRemoveCover = () => {
+    if (!cover)
+      return;
+    setRemovedCover(null);
+    setNewCover(null); 
+  }
+
+  const getInitImage = () => {
+    return newCover ? newCover
+      : cover && !removedCover ? getImageSrc(coverUrl) 
+      : null
   }
 
   const handleXBtn = name => {
@@ -108,7 +129,7 @@ const MovieEdit = ({ movie, updateMovieStart }) => {
     <div className='movie-edit'>
       <div className='movie-edit-main'>
         <div className='movie-cover'>
-          <DropzoneWithPreview initImage={ getImageSrc(coverUrl) } handleDrop={ handleDropCover } onRemove={handleXCover} errorsInside />
+          <DropzoneWithPreview initImage={ () => getInitImage() } handleDrop={ handleDropCover } onRemove={handleXCover} errorsInside />
         </div>
         <form className='movie-details' id='movie-details' onSubmit={ formik.handleSubmit }>
           <VidFormInput formik={ formik } name='title' label='Title' />
@@ -153,6 +174,19 @@ const MovieEdit = ({ movie, updateMovieStart }) => {
             </div>
           }
           {
+            removedCover &&
+            <div>
+              Removed Cover
+              <ImageForEditList 
+                key={ removedCover.id }
+                imgUrl={ getImageSrc(removedCover.url) } 
+                btnLabel='UNDO'
+                btnAction={ handleUndoRemoveCover }
+                label='COVER'
+              />
+            </div>
+          }
+          {
             removedImages && 
             <ImageList 
               label='Removed Images'
@@ -161,7 +195,6 @@ const MovieEdit = ({ movie, updateMovieStart }) => {
               btnAction={ handleUndoRemove }
             />
           }
-          
         </div>
       </div>
       <CustomButton type='submit' label='SAVE' form='movie-details'/>

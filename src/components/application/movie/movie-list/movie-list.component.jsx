@@ -1,15 +1,14 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
 
 import './movie-list.styles.scss';
+import MovieForList from '../movie-for-list/movie-for-list.component';
 
 const MovieList = ({ movies }) => {
-  const { path } = useRouteMatch();
 
   return (
     <div>
       {
-        movies.map(m => <Link to={`${path}/${m.id}/edit`} key={m.id}>{m.title}</Link>)
+        movies.map(m => <MovieForList key={ movies.id } movie={ m } />)
       }
     </div>
   )
