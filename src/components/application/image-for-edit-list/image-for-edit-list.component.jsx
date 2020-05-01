@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import './image-edit-list.styles.scss';
+import './image-for-edit-list.styles.scss';
 import ImageWZoom from '../../general/image-w-zoom/image-w-zoom.component';
 
-const ImageEditList = ({ imgUrl, btnLabel, btnAction }) => {
+const ImageForEditList = ({ imgUrl, btnLabel, btnAction }) => {
 
   return (
     <div className='image-edit-list'>
@@ -15,4 +15,4 @@ const ImageEditList = ({ imgUrl, btnLabel, btnAction }) => {
   )
 }
 
-export default ImageEditList
+export default ImageForEditList

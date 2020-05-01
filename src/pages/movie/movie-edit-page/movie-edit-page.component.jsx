@@ -5,11 +5,11 @@ import { createStructuredSelector } from 'reselect';
 
 import './movie-edit-page.component.scss';
 import MovieEdit from '../../../components/application/movie/movie-edit/movie-edit.component';
-import { selectMovieDetails } from '../../../redux/movie/movie.selectors';
+import { selectMovieDetails, selectMovieDetailsLoading } from '../../../redux/movie/movie.selectors';
 import { fetchMovieStart } from '../../../redux/movie/movie.actions';
 
 
-const MovieEditPage = ({ fetchMovieStart, movieDetails }) => { 
+const MovieEditPage = ({ fetchMovieStart, movieDetails, loading }) => { 
   const { params: { id }} = useRouteMatch();
 
   useEffect(() => {
@@ -19,15 +19,17 @@ const MovieEditPage = ({ fetchMovieStart, movieDetails }) => {
   return (
     <div className='movie-edit-page'>
       { 
-        movieDetails &&
-        <MovieEdit movie={ movieDetails } />
+        !loading && movieDetails 
+        ? <MovieEdit movie={ movieDetails } />
+        : <div> w8 im loading </div>
       }
     </div>
   )
 }
 
 const mapStateToProps = createStructuredSelector({
-  movieDetails: selectMovieDetails
+  movieDetails: selectMovieDetails, 
+  loading: selectMovieDetailsLoading
 });
 
 const mapDispatchToProps = dispatch => ({

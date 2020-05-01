@@ -35,7 +35,7 @@
   .movie-edit-images {
     .edit-images {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
   
       .new-image {
         width: 320px;

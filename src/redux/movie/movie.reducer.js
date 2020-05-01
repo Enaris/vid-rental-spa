@@ -3,7 +3,8 @@ import MovieActionTypes from './movie.types';
 const INITIAL_STATE = {
   movies: [],
   addErrors: '',
-  movieDetails: null
+  movieDetails: null, 
+  movieDetailsLoading: false, 
 }
 
 export const MovieReducer = (state = INITIAL_STATE, action) => {
@@ -21,7 +22,20 @@ export const MovieReducer = (state = INITIAL_STATE, action) => {
     case MovieActionTypes.FETCH_MOVIE_SUCCESS:
       return {
         ...state, 
-        movieDetails: action.payload
+        movieDetails: action.payload, 
+        movieDetailsLoading: false
+      }
+    case MovieActionTypes.FETCH_MOVIE_FAILURE:
+      return {
+        ...state, 
+        movieDetails: null, 
+        movieDetailsLoading: false
+      }
+    case MovieActionTypes.FETCH_MOVIE_START:
+      return {
+        ...state, 
+        movieDetails: null, 
+        movieDetailsLoading: true
       }
     default:
       return state;

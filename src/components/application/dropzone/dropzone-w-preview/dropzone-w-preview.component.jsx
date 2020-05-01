@@ -6,7 +6,7 @@ import VidDropzone from '../../../forms/vid-dropzone/vid-dropzone.component';
 import ImageWZoom from '../../../general/image-w-zoom/image-w-zoom.component';
 
 
-const DropzoneWithPreview = ({ maxSize, label, initImage, onRemove }) => {
+const DropzoneWithPreview = ({ maxSize, label, initImage, onRemove, handleDrop, errorsInside }) => {
   const [image, setImage] = useState(null); 
 
   useEffect(() => {
@@ -20,10 +20,15 @@ const DropzoneWithPreview = ({ maxSize, label, initImage, onRemove }) => {
       setImage(fileReader.result)
     };
     fileReader.readAsDataURL(file);
+    if (handleDrop) {
+      handleDrop(file);
+    }
   }
 
   const onXClick = () => {
     setImage(null);
+    if (onRemove)
+      onRemove();
   }
 
   return (
@@ -42,6 +47,7 @@ const DropzoneWithPreview = ({ maxSize, label, initImage, onRemove }) => {
           acceptType='image/*' 
           handleAccepted={ onDrop } 
           handleRejected={ () => setImage(null) }
+          errorsInside={ errorsInside }
         />
       }
     </div>

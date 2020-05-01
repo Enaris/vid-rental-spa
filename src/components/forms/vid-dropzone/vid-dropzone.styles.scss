@@ -12,9 +12,9 @@
   justify-content: center;
   padding: 20px;
   border-width: 2px;
-  border-radius: 2px;
+  border-radius: 0;
   border-color: $titan-white;
-  border-style: dotted;
+  border-style: dashed;
   background-color: #3b3b3b;
   outline: none;
   transition: border .24s ease-in-out;

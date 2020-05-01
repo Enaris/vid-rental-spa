@@ -11,3 +11,8 @@ export const selectMovieDetails = createSelector(
   [selectMovie],
   movie => movie.movieDetails
 );
+
+export const selectMovieDetailsLoading = createSelector(
+  [selectMovie],
+  movie => movie.movieDetailsLoading
+);

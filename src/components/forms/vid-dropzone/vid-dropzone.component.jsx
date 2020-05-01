@@ -10,7 +10,7 @@ const VidDropzone = ({
   label, 
   handleAccepted, 
   handleRejected, 
-  errorsOutsize = false }) => {
+  errorsInside = true }) => {
   const [errors, setErrors] = useState([]);
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     if (!rejectedFiles || rejectedFiles.length > 0) {
@@ -26,7 +26,8 @@ const VidDropzone = ({
         return { fileName, error };
       })
       setErrors(errors);
-      handleRejected();
+      if (handleRejected)
+        handleRejected(errors);
       return;
     }
     
@@ -52,14 +53,10 @@ const VidDropzone = ({
           : <p>Drag 'n' drop some files here, or click to select files</p>
         }
         {
-          errors && !errorsOutsize &&
-          errors.map(e => <div key={e.fileName}>{ e.error }</div>)
+          errors && errorsInside &&
+          errors.map(e => <div key={e.fileName} className='error-text'>{ e.error }</div>)
         }
       </div>
-      {
-        errors && errorsOutsize &&
-        errors.map(e => <div key={e.fileName}> {`${e.fileName}: ${e.error}`} </div>)
-      }
     </div>
   )
 

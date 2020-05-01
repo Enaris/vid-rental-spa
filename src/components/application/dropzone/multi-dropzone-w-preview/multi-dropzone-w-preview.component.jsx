@@ -4,9 +4,11 @@ import './multi-dropzone-w-preview.styles.scss';
 
 import VidDropzone from '../../../forms/vid-dropzone/vid-dropzone.component';
 
-const MultiDropzone = ({ maxSize, label, handleDrop }) => {
+const MultiDropzone = ({ maxSize, label, handleDrop, handleAccepted, handleRejected, errorsInside }) => {
   const onDrop = files => {
     handleDrop(files);
+    if (handleAccepted)
+      handleAccepted(files);
   }
 
   return (
@@ -16,7 +18,9 @@ const MultiDropzone = ({ maxSize, label, handleDrop }) => {
           maxSize={ maxSize }
           multiple={ true } 
           acceptType='image/*' 
+          handleRejected={ handleRejected }
           handleAccepted={ onDrop } 
+          errorsInside={ errorsInside }
         />
     </div>
   )

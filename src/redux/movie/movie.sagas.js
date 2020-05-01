@@ -2,7 +2,7 @@ import { call, all, takeLatest, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 import MovieActionTypes from './movie.types';
-import staticUrls, { getMovieUrl } from '../api/api.urls';
+import staticUrls, { getMovieUrl, updateMovieUrl } from '../api/api.urls';
 
 import {
   addMovieSuccess,
@@ -10,8 +10,42 @@ import {
   fetchMovieSuccess,
   fetchMovieFailure,
   fetchMoviesSuccess,
-  fetchMoviesFailure
+  fetchMoviesFailure,
+  updateMovieSuccess, 
+  updateMovieFailure
 } from './movie.actions';
+
+export function* updateMovie({ payload }) {
+  try {
+    const formData = new FormData();
+    if (payload.newImages) {
+      payload.newImages.forEach(i => {
+        formData.append('newImages', i);
+      });
+    }
+    if (payload.newCover) {
+      formData.append('newCover', payload.newCover)
+    }
+    if (payload.removedImages) {
+      payload.removedImages.forEach(ri => {
+        formData.append('removedImages', ri);
+      });
+    }
+    formData.append('title', payload.title);
+    formData.append('director', payload.director);
+    formData.append('description', payload.description);
+    formData.append('id', payload.id);
+
+    const config = { headers: { 'Content-Type': 'multipart/form-data' }};
+    const response = yield call(axios.post, updateMovieUrl(payload.id), formData, config);
+    response.data.succeeded
+      ? yield put(updateMovieSuccess())
+      : yield put(updateMovieFailure(response.errors))
+  }
+  catch (errors) {
+    yield put(updateMovieFailure(errors));
+  }
+}
 
 export function* addMovie({ payload }) {
   try {
@@ -49,6 +83,10 @@ export function* fetchMovie({ payload }) {
   }
 }
 
+export function* onUpdateMovieStart() {
+  yield takeLatest(MovieActionTypes.UPDATE_MOVIE_START, updateMovie);
+}
+
 export function* onAddMovieStart() {
   yield takeLatest(MovieActionTypes.ADD_MOVIE_START, addMovie);
 }
@@ -65,6 +103,7 @@ export default function* MovieSagas() {
   yield all([
     call(onAddMovieStart),
     call(onFetchMoviesStart), 
-    call(onFetchMovieStart)
+    call(onFetchMovieStart), 
+    call(onUpdateMovieStart)
   ])
 }

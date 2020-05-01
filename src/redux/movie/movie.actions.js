@@ -42,3 +42,17 @@ export const fetchMoviesFailure = errors => ({
   type: MovieActionTypes.FETCH_MOVIES_FAILURE,
   payload: errors
 });
+
+export const updateMovieStart = updateData => ({
+  type: MovieActionTypes.UPDATE_MOVIE_START,
+  payload: updateData
+});
+
+export const updateMovieSuccess = () => ({
+  type: MovieActionTypes.UPDATE_MOVIE_SUCCESS
+});
+
+export const updateMovieFailure = errors => ({
+  type: MovieActionTypes.UPDATE_MOVIE_FAILURE,
+  payload: errors
+});

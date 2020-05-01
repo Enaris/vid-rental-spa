@@ -1,0 +1,9 @@
+.image-list {
+  display: flex;
+  flex-direction: column;
+  
+  .image-list-images {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
