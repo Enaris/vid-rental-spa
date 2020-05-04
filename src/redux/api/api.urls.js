@@ -4,6 +4,7 @@ export const api = `${base}/api`;
 export const auth = `${api}/auth`;
 export const admin = `${api}/admin`;
 export const movie = `${api}/movie`;
+export const cartridge = `${api}/cartridge`;
 
 const staticUrls = {
   login: `${auth}/login`,
@@ -16,11 +17,19 @@ const staticUrls = {
   movies: movie,
   addMovie: `${movie}/add`,
 
+  movies4Dropdown: `${movie}/dropdown`,
+  addCartridge: cartridge,
+  getCartridges: cartridge,
+
+  getRentList: `${cartridge}/rentList`,
+
   noCoverImageUrl: `${statics}/Images/MoviesDefaults/NoCover.jpg`
 }
 
 export const getImageSrc = relativePath => relativePath ? `${base}/${relativePath}` : null;
 export const getMovieUrl = id => `${movie}/${id}`;
+export const getCartridgeForRentUrl = id => `${cartridge}/${id}/forRent`
+export const getCartridgeUrl = id => `${cartridge}/${id}`;
 export const updateMovieUrl = id => `${movie}/${id}/update`;
 
 export default staticUrls;

@@ -8,15 +8,16 @@ import Header from './components/general/header/header.component';
 import Homepage from './pages/homepage/homepage.component';
 import RegisterPage from './pages/register-page/register-page.component';
 import LoginPage from './pages/login-page/login-page.component';
-import BrowseCartridgesPage from './pages/browse-cartridges/browse-cartridges.component';
 import CartridgeDetails from './pages/cartridge-details/cartridge-details.component.jsx';
 import AdminPage from './pages/admin-page/admin-page.component';
 import EmployeePage from './pages/employee-page/employee-page.component';
+import CartridgeRentListPage from './pages/cartridge-rent-list-page/cartridge-rent-list-page.component';
 
 import { checkTokenStart } from './redux/auth/auth.actions';
 import AuthRoute from './components/general/auth-route/auth-route.component';
 import NonAuthRoute from './components/general/non-auth-route/non-auth-route.component';
 import UserRoles from './redux/api/api.user-roles';
+import AuthorizedUser from './pages/authorized-user/authorized-user.component';
 
 function App({ checkTokenStart }) {
   useEffect(() => {
@@ -40,7 +41,7 @@ function App({ checkTokenStart }) {
             Component={ RegisterPage } 
             />
           <Route exact path='/cartridges/:id' component={ CartridgeDetails } />
-          <Route exact path='/cartridges' component={ BrowseCartridgesPage } />
+          <Route exact path='/cartridges' component={ CartridgeRentListPage } />
           <Route exact path='/' component={ Homepage } />
           <AuthRoute 
             path='/admin' 
@@ -53,6 +54,12 @@ function App({ checkTokenStart }) {
             requiredRole={ UserRoles.Employee }
             redirectTo='/'
             Component={ EmployeePage } 
+          />
+          <AuthRoute 
+            path='/user' 
+            requiredRole={ UserRoles.User }
+            redirectTo='/'
+            Component={ AuthorizedUser } 
           />
         </Switch>
       </div>

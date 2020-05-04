@@ -3,11 +3,15 @@ import { combineReducers } from 'redux';
 import AuthReducer from './auth/auth.reducer';
 import EmployeeReducer from './employee/employee.reducer';
 import MovieReducer from './movie/movie.reducer';
+import CartridgeReducer from './cartridge/cartridge.reducer';
+import CartridgeRentReducer from './cartridge-rent/cartridge-rent.reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
   employee: EmployeeReducer, 
-  movie: MovieReducer
+  movie: MovieReducer,
+  cartridge: CartridgeReducer,
+  cartridgeRent: CartridgeRentReducer
 });
 
 export default RootReducer;

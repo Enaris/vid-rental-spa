@@ -11,7 +11,8 @@ import EmployeeMoviesPage from './employee-movies-page/employee-movies-page.comp
 import AuthRoute from '../../components/general/auth-route/auth-route.component';
 import OrderHistoryPage from '../order-history-page/order-history-page.component';
 import MovieEditPage from '../movie/movie-edit-page/movie-edit-page.component';
-
+import CartridgeAddPage from '../cartridge/cartridge-add-page/cartridge-add-page.component';
+import CartridgeEditPage from '../cartridge/cartridge-edit-page/cartridge-edit-page.component';
 
 const EmployeePage = () => {
   const { path } = useRouteMatch();
@@ -46,6 +47,19 @@ const EmployeePage = () => {
             <AuthRoute exact 
               path={`${path}/cartridges`} 
               Component={ EmployeeCartridgesPage } 
+              requiredRole={ UserRoles.Employee }
+              redirectTo='/'
+            />
+            <AuthRoute exact 
+              path={`${path}/cartridges/:id/edit`} 
+              Component={ CartridgeEditPage } 
+              requiredRole={ UserRoles.Employee }
+              redirectTo='/'
+            />
+
+            <AuthRoute exact 
+              path={`${path}/cartridges/add`} 
+              Component={ CartridgeAddPage } 
               requiredRole={ UserRoles.Employee }
               redirectTo='/'
             />

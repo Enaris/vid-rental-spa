@@ -1,0 +1,51 @@
+@import '../../../../sass/colors';
+
+.cartridge-rent-item {
+  height: 160px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid $titan-white;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  .cartridge-rent-item-thumbnail {
+    background-color: $bg-dark;
+    height: 100%;
+    width: 108px;
+    display: flex;
+    justify-content: center;
+
+    .thumbnail-img {
+      max-width: 100%;
+      display: flex;
+      object-fit: contain;
+    }
+  }
+
+  .cartridge-rent-item-text {
+    .cartridge-rent-item-title {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    .cartridge-rent-item-content {
+      display: flex;
+      flex-direction: row;
+
+      .cartridge-rent-item-decs {
+        display: flex;
+        flex: 8;
+      }
+
+      .cartridge-rent-item-right {
+        display: flex;
+        flex: 2;
+        flex-direction: column;
+        text-align: right;
+      }
+    }
+  }
+}
