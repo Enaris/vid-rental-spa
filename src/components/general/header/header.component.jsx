@@ -20,7 +20,7 @@ const Header = ({ user, logout }) => {
         : user && user.roles.some(r => r.name === UserRoles.Employee) 
         ? <NavLink className='header-link' activeClassName='header-link-active' to='/employee' > EMPLOYEE </NavLink>
         : user 
-        ? <NavLink className='header-link' activeClassName='header-link-active' to='/account' > ACCOUNT </NavLink>
+        ? <NavLink className='header-link' activeClassName='header-link-active' to='/user' > ACCOUNT </NavLink>
         : null
       }
       {

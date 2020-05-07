@@ -13,3 +13,33 @@ export const fetchRentListFailure = errors => ({
   type: CartridgeRentActionTypes.FETCH_RENT_LIST_FAILURE,
   payload: errors
 });
+
+export const fetchForRentStart = id => ({
+  type: CartridgeRentActionTypes.FETCH_FOR_RENT_START,
+  payload: id
+});
+
+export const fetchForRentSuccess = cartridge => ({
+  type: CartridgeRentActionTypes.FETCH_FOR_RENT_SUCCESS,
+  payload: cartridge
+});
+
+export const fetchForRentFailure = errors => ({
+  type: CartridgeRentActionTypes.FETCH_FOR_RENT_FAILURE,
+  payload: errors
+});
+
+export const fetchRentFormStart = (cartridgeId, userId) => ({
+  type: CartridgeRentActionTypes.FETCH_RENT_FORM_START,
+  payload: { cartridgeId, userId }
+});
+
+export const fetchRentFormSuccess = formData => ({
+  type: CartridgeRentActionTypes.FETCH_RENT_FORM_SUCCESS,
+  payload: formData
+});
+
+export const fetchRentFormFailure = errors => ({
+  type: CartridgeRentActionTypes.FETCH_RENT_FORM_FAILURE,
+  payload: errors
+});

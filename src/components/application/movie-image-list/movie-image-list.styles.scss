@@ -1,0 +1,19 @@
+@import '../../../sass/colors';
+
+.movie-image-list-container {
+  display: flex;
+  flex-direction: column;
+  
+  .movie-image-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    .movie-image-item {
+      display: flex;
+      width: 320px;
+      height: 180px;
+      border: 1px solid $titan-white;
+    }
+  }
+}

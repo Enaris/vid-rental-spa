@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import './cartridge-rent-list-item.styles.scss';
 import staticUrls, { getImageSrc } from '../../../../redux/api/api.urls';
@@ -12,6 +13,7 @@ const CartridgeRentItem = ({ cartridge:
     rentPrice,
     movieCoverUrl }
   }) => {
+  const { path } = useRouteMatch();
   const thumbnail = movieCoverUrl ? getImageSrc(movieCoverUrl) : staticUrls.noCoverImageUrl;
   
   return (
@@ -21,7 +23,7 @@ const CartridgeRentItem = ({ cartridge:
       </div>
       <div className='cartridge-rent-item-text w100'>
         <div className='cartridge-rent-item-title'>
-          { movieTitle }
+          <Link to={`${path}/${id}`}>{ movieTitle }</Link>
         </div>
         <div className='cartridge-rent-item-content'>
           <div className='cartridge-rent-item-decs'>

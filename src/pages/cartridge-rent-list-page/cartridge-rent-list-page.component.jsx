@@ -16,7 +16,7 @@ const CartridgeRentListPage = ({ fetchRentList, rentList, listLoading }) => {
   }, [fetchRentList])
   
   return (
-    <div className='cartridge-rent-list-page'>
+    <div className='cartridge-rent-list-page content-container'>
       {
         listLoading 
         ? <div> Items for rent are lodaing </div> 

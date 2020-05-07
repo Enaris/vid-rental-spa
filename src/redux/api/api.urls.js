@@ -29,6 +29,7 @@ const staticUrls = {
 export const getImageSrc = relativePath => relativePath ? `${base}/${relativePath}` : null;
 export const getMovieUrl = id => `${movie}/${id}`;
 export const getCartridgeForRentUrl = id => `${cartridge}/${id}/forRent`
+export const getCartridgeForRentFormUrl = (cartridgeId, userId) => `${cartridge}/${cartridgeId}/rentFormFor/${userId}`;
 export const getCartridgeUrl = id => `${cartridge}/${id}`;
 export const updateMovieUrl = id => `${movie}/${id}/update`;
 
