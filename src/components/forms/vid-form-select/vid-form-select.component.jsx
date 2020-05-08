@@ -10,6 +10,13 @@ const VidFormSelect = ({ options,
   formik, 
   name }) => {
 
+  const handleChange = (value) => {
+    if (onChange)
+      onChange(value.target.value);
+    
+    formik.setFieldValue(name, value.target.value);
+  }
+
   return (
     <div className='w100 vid-form-select-container'>
       {

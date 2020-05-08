@@ -4,6 +4,7 @@ export const api = `${base}/api`;
 export const auth = `${api}/auth`;
 export const admin = `${api}/admin`;
 export const movie = `${api}/movie`;
+export const users = `${api}/users`;
 export const cartridge = `${api}/cartridge`;
 
 const staticUrls = {
@@ -23,6 +24,8 @@ const staticUrls = {
 
   getRentList: `${cartridge}/rentList`,
 
+  addAddress: `${users}/addAddress`,
+
   noCoverImageUrl: `${statics}/Images/MoviesDefaults/NoCover.jpg`
 }
 
@@ -31,6 +34,8 @@ export const getMovieUrl = id => `${movie}/${id}`;
 export const getCartridgeForRentUrl = id => `${cartridge}/${id}/forRent`
 export const getCartridgeForRentFormUrl = (cartridgeId, userId) => `${cartridge}/${cartridgeId}/rentFormFor/${userId}`;
 export const getCartridgeUrl = id => `${cartridge}/${id}`;
+export const getUserAddressesUrl = userId => `${users}/${userId}/addresses`;
+export const getDeactivateAddressUrl = addressId => `${users}/deactiveAddress/${addressId}`;
 export const updateMovieUrl = id => `${movie}/${id}/update`;
 
 export default staticUrls;

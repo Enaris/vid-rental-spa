@@ -1,0 +1,36 @@
+@import '../../../sass/colors';
+
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: $bg-dark;
+    border: 1px solid $titan-white;
+    min-height: 120px;
+    min-width: 260px;
+    text-align: center;
+    padding: 50px;
+
+    .modal-content-component {
+      display: flex;
+      flex-grow: 1;
+    }
+    
+    .modal-buttons {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-around;
+
+      .modal-btn {
+        min-width: 80px;
+      }
+    }
+  }
+}

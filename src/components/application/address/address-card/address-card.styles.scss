@@ -1,0 +1,22 @@
+@import '../../../../sass/colors';
+
+.address-card {
+  width: 180px;
+  height: 180px;
+  background-color: $titan-white;
+  color: $bg-dark;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid $bg-dark;
+
+  .address-card-content {
+    div,
+    span, 
+    p {
+      color: $bg-dark; 
+    }
+  }
+}

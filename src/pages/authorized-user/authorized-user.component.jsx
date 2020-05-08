@@ -7,6 +7,7 @@ import LeftPanel from '../../components/general/left-panel/left-panel.component'
 import UserRoles from '../../redux/api/api.user-roles';
 import UserSidebar from '../../components/general/user-sidebar/user-sidebar.component';
 import UserAddressPage from './user-address-page/user-address-page.component';
+import UserAddAddressPage from './user-address-add-page/user-address-add-page.component';
 
 const AuthorizedUser = () => {
   const { path } = useRouteMatch();
@@ -22,6 +23,12 @@ const AuthorizedUser = () => {
               requiredRole={ UserRoles.User }
               redirectTo='/'
               Component={() => <div> Hi User </div>}
+            />
+            <AuthRoute exact 
+              path={`${path}/address/add`} 
+              Component={ UserAddAddressPage } 
+              requiredRole={ UserRoles.User }
+              redirectTo='/'
             />
             <AuthRoute exact 
               path={`${path}/address`} 

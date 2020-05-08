@@ -5,6 +5,7 @@ import EmployeeSagas from './employee/employee.sagas';
 import MovieSagas from './movie/movie.sagas';
 import CartridgeSagas from './cartridge/cartridge.sagas';
 import CartridgeRentSagas from './cartridge-rent/cartridge-rent.sagas';
+import AddressSagas from './address/address.sagas';
 
 export default function* RootSaga() {
   yield all([
@@ -12,6 +13,7 @@ export default function* RootSaga() {
     call(EmployeeSagas), 
     call(MovieSagas),
     call(CartridgeSagas),
-    call(CartridgeRentSagas)
+    call(CartridgeRentSagas),
+    call(AddressSagas)
   ])
 }

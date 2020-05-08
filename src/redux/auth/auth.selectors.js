@@ -16,3 +16,8 @@ export const selectUserRoles = createSelector(
   [selectCurrentUser],
   user => user ? user.roles : null
 );
+
+export const selectUserId = createSelector(
+  [selectCurrentUser],
+  user => user ? user.id : null
+);
