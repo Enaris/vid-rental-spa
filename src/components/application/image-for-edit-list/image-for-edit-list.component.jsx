@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './image-for-edit-list.styles.scss';
 import ImageWZoom from '../../general/image-w-zoom/image-w-zoom.component';

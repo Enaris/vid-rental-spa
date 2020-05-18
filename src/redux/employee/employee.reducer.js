@@ -4,7 +4,11 @@ const INITIAL_STATE = {
   employees: [],
   errors: null,
   employeesLoading: false,
-  employeeAdding: false
+  employeeAdding: false,
+
+  rentals: [],
+  rentalsErrors: null,
+  rentalsLoading: true
 }
 
 const EmployeeReducer = (state = INITIAL_STATE, action) => {
@@ -44,7 +48,28 @@ const EmployeeReducer = (state = INITIAL_STATE, action) => {
         employeeAdding: false,
         errors: action.payload
       }
-    
+
+    case employeeActionTypes.FETCH_ALL_RENTALS_START: 
+      return {
+        ...state,
+        rentals: [],
+        rentalsLoading: true,
+        rentalsErrors: null
+      }
+    case employeeActionTypes.FETCH_ALL_RENTALS_SUCCESS:
+      return {
+        ...state,
+        rentals: action.payload,
+        rentalsLoading: false,
+        rentalsErrors: null
+      }
+    case employeeActionTypes.FETCH_ALL_RENTALS_FAILURE:
+      return {
+        ...state, 
+        rentals: [],
+        rentalsLoading: false,
+        rentalsErrors: action.payload
+      }
 
     default:
       return state;

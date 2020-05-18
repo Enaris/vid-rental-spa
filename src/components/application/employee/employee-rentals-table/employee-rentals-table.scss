@@ -1,0 +1,26 @@
+@import '../../../../sass/colors';
+
+.rentals-table {
+  table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+
+    thead {
+      tr {
+        font-weight: bold;
+      }
+    }
+
+    tr {
+      border-bottom: 1px solid white;
+      min-height: 30px;
+
+      &.order-warning {
+        td {
+          color: $red-warning-text;
+        }
+      }
+    }
+  }
+}

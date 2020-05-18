@@ -4,7 +4,8 @@ import axios from 'axios';
 import CartridgeRentActionTypes from './cartridge-rent.types';
 import staticUrls, { 
   getCartridgeForRentUrl,
-  getCartridgeForRentFormUrl
+  getCartridgeForRentFormUrl,
+  getRentCartridgeUrl
 } from '../api/api.urls';
 
 import {
@@ -13,7 +14,9 @@ import {
   fetchForRentFailure, 
   fetchForRentSuccess,
   fetchRentFormFailure,
-  fetchRentFormSuccess
+  fetchRentFormSuccess,
+  rentCartridgeFailure,
+  rentCartridgeSuccess
 } from './cartridge-rent.actions';
 
 export function* fetchRentList() {
@@ -52,6 +55,18 @@ export function* fetchForm({ payload: { cartridgeId, userId } }) {
   }
 }
 
+export function* rentCartridge({ payload: { cartridgeId, userId, ...otherProps } }) {
+  try {
+    const response = yield call(axios.post, getRentCartridgeUrl(cartridgeId, userId), otherProps);
+    response.data.succeeded
+    ? yield put(rentCartridgeSuccess(response.data.data))
+    : yield put(rentCartridgeFailure(response.errors))
+  }
+  catch (errors) {
+    yield put(rentCartridgeFailure(errors));
+  }
+}
+
 export function* onFetchRentListStart() {
   yield takeLatest(CartridgeRentActionTypes.FETCH_RENT_LIST_START, fetchRentList);
 }
@@ -64,10 +79,15 @@ export function* onFetchRentFormStart() {
   yield takeLatest(CartridgeRentActionTypes.FETCH_RENT_FORM_START, fetchForm);
 }
 
+export function* onRentCartridgeStart() {
+  yield takeLatest(CartridgeRentActionTypes.RENT_CARTRIDGE_START, rentCartridge);
+}
+
 export default function* CartridgeRentSagas() {
   yield all([
     call(onFetchRentListStart),
     call(onFetchCartridgeForRentStart),
-    call(onFetchRentFormStart)
+    call(onFetchRentFormStart),
+    call(onRentCartridgeStart)
   ])
 }

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const INITIAL_STATE = {
   currentUser: null,
+  loginErrors: null,
   errors: null,
   token: null,
   tokenLoading: true,
@@ -15,7 +16,8 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
     case AuthActionTypes.LOGIN_START:
       return {
         ...state, 
-        userLoading: true
+        userLoading: true,
+        loginErrors: null
       }
     case AuthActionTypes.LOGIN_SUCCESS:
       const { user, token } = action.payload.data;  
@@ -23,14 +25,15 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: user,
         token,
-        userLoading: false
+        userLoading: false,
+        loginErrors: null
       }
     case AuthActionTypes.LOGIN_FAILURE:
       return {
         ...state,
         currentUser: null,
         token: null,
-        errors: action.payload.errors,
+        loginErrors: action.payload,
         userLoading: false
       }
     case AuthActionTypes.REGISTER_START:

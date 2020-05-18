@@ -8,6 +8,7 @@ import UserRoles from '../../redux/api/api.user-roles';
 import UserSidebar from '../../components/general/user-sidebar/user-sidebar.component';
 import UserAddressPage from './user-address-page/user-address-page.component';
 import UserAddAddressPage from './user-address-add-page/user-address-add-page.component';
+import UserOrdersPage from './user-orders-page/user-orders-page.component';
 
 const AuthorizedUser = () => {
   const { path } = useRouteMatch();
@@ -33,6 +34,12 @@ const AuthorizedUser = () => {
             <AuthRoute exact 
               path={`${path}/address`} 
               Component={ UserAddressPage } 
+              requiredRole={ UserRoles.User }
+              redirectTo='/'
+            />
+            <AuthRoute exact 
+              path={`${path}/orders`} 
+              Component={ UserOrdersPage } 
               requiredRole={ UserRoles.User }
               redirectTo='/'
             />

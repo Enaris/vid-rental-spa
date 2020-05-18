@@ -1,0 +1,22 @@
+.employee-table {
+  table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+
+    thead {
+      tr {
+        font-weight: bold;
+      }
+    }
+
+    tr {
+      border-bottom: 1px solid white;
+      min-height: 30px;
+
+      .remove-btn {
+        padding: 0.2rem 0.3rem;
+      }
+    }
+  }
+}

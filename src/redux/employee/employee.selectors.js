@@ -11,3 +11,13 @@ export const selectEmployeesLoading = createSelector(
   [selectEmployee],
   employee => employee.employeesLoading
 );
+
+export const selectRentals = createSelector(
+  [selectEmployee],
+  employee => employee.rentals
+);
+
+export const selectRentalsLoading = createSelector(
+  [selectEmployee],
+  employee => employee.rentalsLoading
+);

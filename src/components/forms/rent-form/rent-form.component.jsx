@@ -8,11 +8,14 @@ import './rent-form.styles.scss';
 import VidFormSelect from '../vid-form-select/vid-form-select.component';
 import AddressForm from '../address-form/address-form.component';
 import CustomButton from '../../general/custom-button/custom-button.component';
+import AddressSummary from '../../application/address/address-summary/address-summary.component';
 import { deliveryOptions } from './rent-form.utils';
 import { selectCurrentUser } from '../../../redux/auth/auth.selectors';
+import { rentCartridgeStart } from '../../../redux/cartridge-rent/cartridge-rent.actions';
  
 const RentForm = ({
   user, 
+  rentCartridge,
   cartidgeRental: 
   { id, 
     movieTitle, 
@@ -55,28 +58,47 @@ const RentForm = ({
     });
     setAddressAdded(false);
     setAddAddress(false);
+    formik.values.addressId='';
+  }
+
+  const handleDeliverySelect = (value) => {
+    if (value !== deliveryOptions[0].key)
+      return;
+    
+    handleRemoveAddress();
+  }
+
+  const getRentData = () => {
+    const rentData = ({
+      ...formik.values,
+      userId: user.id,
+      cartridgeId: id,
+      addAddress: addressAdded,
+      newAddress: !addressAdded ? null : {
+        ...savedAddress
+      }
+    })
+    return rentData;
   }
 
   const formik = useFormik({
     initialValues: {
-      selectedAddressId: '',
       addressId: '',
-      newAddress: false,
       delivery: deliveryOptions[0].key
     },
     validationSchema: Yup.object({
       delivery: Yup.string()
         .required('Delivery is required'),
+      addressId: Yup.string()
+        .test('address-required', 'Address is required', 
+          value => formik.values.delivery === deliveryOptions[0].key || (!!value && value.trim()) || addressAdded )
     }),
-    onSubmit: values => console.log(values)
+    onSubmit: values => rentCartridge(getRentData())
   });
 
   const canSelectAddress = () => formik.values.delivery 
     !== deliveryOptions[0].key && addresses && addresses.length;
 
-  console.log(formik.values.delivery);
-  console.log(canSelectAddress() && !addAddress);
-  
   return (
     <div className='rent-form-container'>
       <div className='rent-cartridge-info'>
@@ -88,34 +110,42 @@ const RentForm = ({
         </div>
         <div className='rent-days-to-return'> 
           After renting you will have { `${ daysToReturn } ${daysToReturn === 1 ? 'day' : 'days'} ` } 
-          to return cartridge, you can have active rentals at time
+          to return cartridge, you cannot have more than 3 active rental at same time.
         </div>
       </div>
-      <div className='rent-form'>
-        <VidFormSelect
-          name='delivery'
-          formik={ formik }
-          label="Delivery" 
-          textSelector={ o => o.value }
-          valueSelector={ o => o.key }
-          options={ deliveryOptions } 
-        />
-        {
-          canSelectAddress() && !addAddress &&
+      <div className='rent-form-container' >
+        <form className='rent-form' onSubmit={ formik.handleSubmit } id='rent-form'>
           <VidFormSelect
-            name='addressId'
+            name='delivery'
             formik={ formik }
-            label="Address" 
-            textSelector={ o => `${o.firstName}, ${o.lastName} | ${o.city}, ${o.street}` }
-            valueSelector={ o => o.id }
-            options={ addresses } 
+            label="Delivery" 
+            textSelector={ o => o.value }
+            valueSelector={ o => o.key }
+            options={ deliveryOptions } 
+            onChange={ handleDeliverySelect }
           />
+          {
+            canSelectAddress() && !addAddress && !addressAdded &&
+            <VidFormSelect
+              placeholder='Select address'
+              name='addressId'
+              formik={ formik }
+              label="Address" 
+              textSelector={ o => `${o.firstName}, ${o.lastName} | ${o.city}, ${o.street}` }
+              valueSelector={ o => o.id }
+              options={ addresses } 
+            />
+          }
+        </form>
+        {
+          addressAdded &&
+          <AddressSummary address={ savedAddress } />
         }
         {
           canSelectAddress() && !addAddress && 
           <CustomButton 
             onClick={() => setAddAddress(true)}
-            label='Add new address'
+            label={ `${ addressAdded ? 'Change address' : 'Add new address' }` }
           />
         }
         {
@@ -150,16 +180,15 @@ const RentForm = ({
             </div>
           )
         }
+        <CustomButton 
+          className='w100' 
+          type='submit' 
+          label={ 'ok' }
+          form='rent-form' 
+          disabled={ addAddress }
+        />
       </div>
-      <CustomButton 
-        className='w100' 
-        type='submit' 
-        label={ 'ok' }
-        form='register-form' 
-        disabled={ addAddress }
-      />
-
-      </div>
+    </div>
   )
 }
 
@@ -167,4 +196,8 @@ const mapStateToProps = createStructuredSelector({
   user: selectCurrentUser
 });
 
-export default connect(mapStateToProps)(RentForm);
+const mapDispatchToProps = dispatch => ({
+  rentCartridge: rentData => dispatch(rentCartridgeStart(rentData))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RentForm);

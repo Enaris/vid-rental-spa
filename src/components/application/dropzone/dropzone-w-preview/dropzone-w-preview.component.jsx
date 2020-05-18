@@ -11,6 +11,7 @@ const DropzoneWithPreview = ({ maxSize, label, initImage, onRemove, handleDrop, 
 
   useEffect(() => {
     if (initImage)
+      console.log(initImage);
       setImage(initImage);
   }, [initImage])
 

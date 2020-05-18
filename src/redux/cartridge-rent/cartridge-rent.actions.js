@@ -43,3 +43,17 @@ export const fetchRentFormFailure = errors => ({
   type: CartridgeRentActionTypes.FETCH_RENT_FORM_FAILURE,
   payload: errors
 });
+
+export const rentCartridgeStart = rentRequest => ({
+  type: CartridgeRentActionTypes.RENT_CARTRIDGE_START,
+  payload: rentRequest
+});
+
+export const rentCartridgeSuccess = () => ({
+  type: CartridgeRentActionTypes.RENT_CARTRIDGE_SUCCESS,
+});
+
+export const rentCartridgeFailure = errors => ({
+  type: CartridgeRentActionTypes.RENT_CARTRIDGE_FAILURE,
+  payload: errors
+});

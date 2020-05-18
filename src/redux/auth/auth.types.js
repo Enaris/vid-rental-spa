@@ -11,7 +11,8 @@ const AuthActionTypes = {
   CHECK_TOKEN_SUCCESS: 'CHECK_TOKEN_SUCCESS',
   CHECK_TOKEN_FAILURE: 'CHECK_TOKEN_FAILURE',
   SAVE_TOKEN: 'SAVE_TOKEN',
-  SAVE_USER: 'SAVE_USER' 
+  SAVE_USER: 'SAVE_USER'
+
 }
 
 export default AuthActionTypes;

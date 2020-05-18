@@ -9,7 +9,7 @@ import UserRoles from '../../redux/api/api.user-roles';
 import EmployeeCartridgesPage from './employee-cartridges-page/employee-cartridges-page.component';
 import EmployeeMoviesPage from './employee-movies-page/employee-movies-page.component';
 import AuthRoute from '../../components/general/auth-route/auth-route.component';
-import OrderHistoryPage from '../order-history-page/order-history-page.component';
+import EmployeeRentalsPage from './employee-rentals-page/employee-rentals-page';
 import MovieEditPage from '../movie/movie-edit-page/movie-edit-page.component';
 import CartridgeAddPage from '../cartridge/cartridge-add-page/cartridge-add-page.component';
 import CartridgeEditPage from '../cartridge/cartridge-edit-page/cartridge-edit-page.component';
@@ -64,8 +64,8 @@ const EmployeePage = () => {
               redirectTo='/'
             />
             <AuthRoute exact 
-              path={`${path}/orders`} 
-              Component={ OrderHistoryPage }
+              path={`${path}/rentals`} 
+              Component={ EmployeeRentalsPage }
               requiredRole={ UserRoles.Employee }
               redirectTo='/'
             />

@@ -41,7 +41,7 @@ const ConfirmModal = ({ isOpen,
       }}
     >
       <div className='modal-container' onClick={ () => close() }>
-        <div className='modal-content'>
+        <div className='modal-content' onClick={ e => e.stopPropagation() }>
           <div>{ question }</div>
           <div className='modal-content-component'>
           {
@@ -50,7 +50,11 @@ const ConfirmModal = ({ isOpen,
           }
           </div>
           <div className='modal-buttons'>
-            <CustomButton className='modal-btn' onClick={() => yes()} label={ yesLabel } />
+            <CustomButton 
+              className='modal-btn' 
+              onClick={() => yes()} 
+              label={ yesLabel } 
+            />
             <CustomButton className='modal-btn' onClick={() => no()} label={ noLabel } />
           </div>
         </div>

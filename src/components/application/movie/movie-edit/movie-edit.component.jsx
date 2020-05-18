@@ -98,6 +98,8 @@ const MovieEdit = ({ movie, updateMovieStart }) => {
       : null
   }
 
+  const initImg = getInitImage();
+
   const handleXBtn = name => {
     const filteredImages = newImages.filter(ni => ni.name !== name);
     setNewImages(filteredImages);
@@ -129,7 +131,7 @@ const MovieEdit = ({ movie, updateMovieStart }) => {
     <div className='movie-edit'>
       <div className='movie-edit-main'>
         <div className='movie-cover'>
-          <DropzoneWithPreview initImage={ () => getInitImage() } handleDrop={ handleDropCover } onRemove={handleXCover} errorsInside />
+          <DropzoneWithPreview initImage={ initImg } handleDrop={ handleDropCover } onRemove={handleXCover} errorsInside />
         </div>
         <form className='movie-details' id='movie-details' onSubmit={ formik.handleSubmit }>
           <VidFormInput formik={ formik } name='title' label='Title' />

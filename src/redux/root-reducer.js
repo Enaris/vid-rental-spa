@@ -6,6 +6,7 @@ import MovieReducer from './movie/movie.reducer';
 import CartridgeReducer from './cartridge/cartridge.reducer';
 import CartridgeRentReducer from './cartridge-rent/cartridge-rent.reducer';
 import AddressReducer from './address/address.reducer';
+import ShopUserReducer from './shop-user/shop-user.reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -13,7 +14,8 @@ const RootReducer = combineReducers({
   movie: MovieReducer,
   cartridge: CartridgeReducer,
   cartridgeRent: CartridgeRentReducer,
-  address: AddressReducer
+  address: AddressReducer,
+  shopUser: ShopUserReducer
 });
 
 export default RootReducer;

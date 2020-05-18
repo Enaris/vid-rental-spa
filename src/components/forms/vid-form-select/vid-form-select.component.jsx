@@ -8,13 +8,14 @@ const VidFormSelect = ({ options,
   placeholder, 
   label, 
   formik, 
+  onChange,
   name }) => {
 
   const handleChange = (value) => {
     if (onChange)
-      onChange(value.target.value);
-    
-    formik.setFieldValue(name, value.target.value);
+      onChange(value);
+
+    formik.setFieldValue(name, value);
   }
 
   return (
@@ -24,7 +25,7 @@ const VidFormSelect = ({ options,
         <div className='vid-form-select-label'>{ label }</div>
       }
       <select 
-        onChange={ (value) => formik.setFieldValue(name, value.target.value) }
+        onChange={ (e) => handleChange(e.target.value) }
         value={ formik.values[name] }
         className={`${formik.touched[name] && formik.errors[name] ? 'error' : ''} vid-form-select`}
         name={ name }
