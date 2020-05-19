@@ -1,5 +1,6 @@
 import { call, all, takeLatest, put } from 'redux-saga/effects';
 import axios from 'axios';
+import { push } from 'react-router-redux';
 
 import MovieActionTypes from './movie.types';
 import staticUrls, { getMovieUrl, updateMovieUrl } from '../api/api.urls';
@@ -14,6 +15,7 @@ import {
   updateMovieSuccess, 
   updateMovieFailure
 } from './movie.actions';
+
 
 export function* updateMovie({ payload }) {
   try {
@@ -50,9 +52,13 @@ export function* updateMovie({ payload }) {
 export function* addMovie({ payload }) {
   try {
     const response = yield call(axios.post, staticUrls.addMovie, payload);
-    response.data.succeeded
-    ? yield put(addMovieSuccess(response.data.data))
-    : yield put(addMovieFailure(response.errors))
+    if (response.data.succeeded) {
+      yield put(addMovieSuccess(response.data.data));
+      push('/employee/movies');
+    }
+    else {
+      yield put(addMovieFailure(response.errors))
+    }
   }
   catch (errors) {
     yield put(addMovieFailure(errors));

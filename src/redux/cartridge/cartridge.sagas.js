@@ -2,7 +2,7 @@ import { call, all, takeLatest, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 import CartridgeActionTypes from './cartridge.types';
-import staticUrls, { getCartridgeUrl } from '../api/api.urls';
+import staticUrls, { getCartridgeUrl, getCartridgeUpdateUrl } from '../api/api.urls';
 
 import {
   fetchMovies4DropdownSuccess,
@@ -12,7 +12,10 @@ import {
   fetchCartridgesSuccess,
   fetchCartridgesFailure,
   fetchCartridgeSuccess,
-  fetchCartridgeFailure
+  fetchCartridgeFailure,
+  updateCartridgeSuccess,
+  fetchCartridgeStart,
+  updateCartridgeFailure
 } from './cartridge.actions';
 
 export function* fetchMovies4Dropdown() {
@@ -63,6 +66,22 @@ export function* fetchCartridge({ payload }) {
   }
 }
 
+export function* updateCartridge({ payload: {cartridgeId, data} }) {
+  try {
+    const response = yield call(axios.post, getCartridgeUpdateUrl(cartridgeId), data);    
+    if (response.data.succeeded) {
+      yield put(updateCartridgeSuccess())
+      yield put(fetchCartridgeStart(cartridgeId))
+    }
+    else {
+      yield put(updateCartridgeFailure(response.errors))
+    } 
+  }
+  catch (errors) {
+    yield put(updateCartridgeFailure(errors));
+  }
+}
+
 export function* onFetchMovies4Dropdown() {
   yield takeLatest(CartridgeActionTypes.FETCH_MOVIES_FOR_DROPDOWN_START, fetchMovies4Dropdown);
 } 
@@ -79,11 +98,16 @@ export function* onFetchCartridge() {
   yield takeLatest(CartridgeActionTypes.FETCH_CARTRIDGE_START, fetchCartridge);
 }
 
+export function* onUpdateCartridge() {
+  yield takeLatest(CartridgeActionTypes.UPDATE_CARTRIDGE_START, updateCartridge);
+}
+
 export default function* CartridgeSagas() {
   yield all([
     call(onFetchMovies4Dropdown),
     call(onAddCartridgeStart),
     call(onFetchCartridges),
-    call(onFetchCartridge)
+    call(onFetchCartridge), 
+    call(onUpdateCartridge)
   ])
 }

@@ -6,7 +6,7 @@ import './simple-date-in.styles.scss';
 import CustomButton from '../../../components/general/custom-button/custom-button.component';
 import VidDatepicker from '../../forms/vid-datepicker/vid-datepicker.component';
 
-const SimpleDateInput = ({ minDate, onSubmit, title, date, saveBtnAction, closeModal }) => {
+const SimpleDateInput = ({ minDate, onSubmit, title, date, saveBtnAction, closeModal, copyAvaible }) => {
 
   console.log(minDate);
   const formik = useFormik({
@@ -43,7 +43,13 @@ const SimpleDateInput = ({ minDate, onSubmit, title, date, saveBtnAction, closeM
       <div>{ title }</div>
       <VidDatepicker formik={ formik } name='date' />
       <CustomButton type='submit' label='Save' className='mt-5 w100' />
-      <CustomButton type='button' label='Set not returned' className='mt-5 w100' onClick={ e => handleCancel(e) } />
+      <CustomButton 
+        type='button' 
+        label={ `${copyAvaible ? 'Set not returned' : 'Cannot do this now'}` } 
+        className='mt-5 w100' 
+        onClick={ e => handleCancel(e) }
+        disabled={ !copyAvaible } 
+      />
     </form>
   )
 }

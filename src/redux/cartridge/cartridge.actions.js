@@ -70,3 +70,17 @@ export const editCartridgeFailure = errors => ({
   type: CartridgeActionTypes.EDIT_CARTRIDGE_FAILURE,
   payload: errors
 });
+
+export const updateCartridgeStart = data => ({
+  type: CartridgeActionTypes.UPDATE_CARTRIDGE_START,
+  payload: data
+});
+
+export const updateCartridgeSuccess = () => ({
+  type: CartridgeActionTypes.UPDATE_CARTRIDGE_SUCCESS,
+});
+
+export const updateCartridgeFailure = errors => ({
+  type: CartridgeActionTypes.UPDATE_CARTRIDGE_FAILURE,
+  payload: errors
+});

@@ -41,6 +41,7 @@ export const getCartridgeForRentUrl = id => `${cartridge}/${id}/forRent`
 export const getCartridgeForRentFormUrl = (cartridgeId, userId) => `${cartridge}/${cartridgeId}/rentFormFor/${userId}`;
 export const getRentCartridgeUrl = (cartridgeId, userId) => `${cartridge}/${cartridgeId}/rent/${userId}`;
 export const getCartridgeUrl = id => `${cartridge}/${id}`;
+export const getCartridgeUpdateUrl = id => `${cartridge}/${id}/update`;
 export const getRentalUpdateReturn = rentalId => `${rental}/${rentalId}/updatereturn`;
 export const getUserRentalsUrl = userId => `${shopUser}/${userId}/rentals`;
 export const getUserAddressesUrl = userId => `${users}/${userId}/addresses`;

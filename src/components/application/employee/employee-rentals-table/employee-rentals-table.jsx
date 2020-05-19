@@ -52,6 +52,7 @@ const EmployeeRentalsTable = ({ rentals, updateRentalReturn }) => {
                       date={ r.returned ? r.returned : null } 
                       onSubmit={ values => updateRentalReturn(r.id, values.date)}
                       title='Set return date' 
+                      copyAvaible={ r.copyAvaible }
                     />
                   )}
                 />
