@@ -17,6 +17,7 @@ import {
   fetchCartridgeStart,
   updateCartridgeFailure
 } from './cartridge.actions';
+import { push } from 'connected-react-router';
 
 export function* fetchMovies4Dropdown() {
   try {
@@ -33,9 +34,13 @@ export function* fetchMovies4Dropdown() {
 export function* addCartridge({ payload }) {
   try {
     const response = yield call(axios.post, staticUrls.addCartridge, payload);
-    response.data.succeeded
-    ? yield put(addCartridgeSuccess())
-    : yield put(addCartridgeFailure(response.errors))
+    if (response.data.succeeded) {
+      yield put(addCartridgeSuccess());
+      yield put(push('/employee/cartridges'));
+    }
+    else {
+      yield put(addCartridgeFailure(response.errors))
+    }
   }
   catch (errors) {
     yield put(addCartridgeFailure(errors));

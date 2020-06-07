@@ -96,8 +96,11 @@ const RentForm = ({
     onSubmit: values => rentCartridge(getRentData())
   });
 
-  const canSelectAddress = () => formik.values.delivery 
-    !== deliveryOptions[0].key && addresses && addresses.length;
+  const canSelectAddress = () => !!(formik.values.delivery 
+    !== deliveryOptions[0].key && addresses && addresses.length);
+
+  const canAddAdress = () => !!(formik.values.delivery 
+    !== deliveryOptions[0].key && addresses);
 
   return (
     <div className='rent-form-container'>
@@ -142,14 +145,14 @@ const RentForm = ({
           <AddressSummary address={ savedAddress } />
         }
         {
-          canSelectAddress() && !addAddress && 
+          canAddAdress() && !addAddress && 
           <CustomButton 
             onClick={() => setAddAddress(true)}
             label={ `${ addressAdded ? 'Change address' : 'Add new address' }` }
           />
         }
         {
-          canSelectAddress() && addAddress && (
+          canAddAdress && addAddress && (
             <div>
               <div className='address-cancel-rmv-btns'> 
                 <CustomButton 

@@ -1,6 +1,6 @@
 import { call, all, takeLatest, put } from 'redux-saga/effects';
 import axios from 'axios';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import MovieActionTypes from './movie.types';
 import staticUrls, { getMovieUrl, updateMovieUrl } from '../api/api.urls';
@@ -40,9 +40,14 @@ export function* updateMovie({ payload }) {
 
     const config = { headers: { 'Content-Type': 'multipart/form-data' }};
     const response = yield call(axios.post, updateMovieUrl(payload.id), formData, config);
-    response.data.succeeded
-      ? yield put(updateMovieSuccess())
-      : yield put(updateMovieFailure(response.errors))
+    
+    if (response.data.succeeded) {
+      yield put(updateMovieSuccess());
+      yield put(push('/employee/movies'));
+    } 
+    else {
+      yield put(updateMovieFailure(response.errors))
+    }
   }
   catch (errors) {
     yield put(updateMovieFailure(errors));
@@ -54,7 +59,7 @@ export function* addMovie({ payload }) {
     const response = yield call(axios.post, staticUrls.addMovie, payload);
     if (response.data.succeeded) {
       yield put(addMovieSuccess(response.data.data));
-      push('/employee/movies');
+      yield put(push('/employee/movies'));
     }
     else {
       yield put(addMovieFailure(response.errors))

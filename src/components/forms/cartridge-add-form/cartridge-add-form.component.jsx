@@ -57,8 +57,8 @@ const CartridgeAddForm = ({
     <div>
       {
         dropdownLoading 
-        ? <div>I ma loading now </div>
-        : !dropdownLoading && !dropdownMovies 
+        ? <div> Loading </div>
+        : !dropdownLoading && !dropdownMovies.length
         ? <div> You need to add some movies first. </div>
         :
         <form onSubmit={ formik.handleSubmit }>

@@ -21,3 +21,8 @@ export const selectRentalsLoading = createSelector(
   [selectEmployee],
   employee => employee.rentalsLoading
 );
+
+export const selectEmployeeErrors = createSelector(
+  [selectEmployee],
+  employee => employee.errors
+);

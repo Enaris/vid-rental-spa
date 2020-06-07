@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store, { history } from './redux/store';
 
 import "react-datepicker/dist/react-datepicker.css"
+import { ConnectedRouter } from 'connected-react-router';
 
 ReactDOM.render(
   <Provider store={ store }>
-    <BrowserRouter>
+    <ConnectedRouter history={ history }>
       <App />
-    </BrowserRouter>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

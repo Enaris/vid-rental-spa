@@ -15,6 +15,7 @@ import {
   updateRentalReturnFailure,
   updateRentalReturnSuccess
 } from './employee.actions';
+import { push } from 'connected-react-router';
 
 export function* fetchEmployee() {
   try {
@@ -31,12 +32,16 @@ export function* fetchEmployee() {
 export function* addEmployee({ payload }) {
   try {
     const response = yield call(axios.post, staticUrls.addEmployee, payload);
-    response.data.succeeded
-    ? yield put(addEmployeeSuccess(response.data.data))
-    : yield put(addEmployeeFailure(response.errors))
+    if (response.data.succeeded) {
+      yield put(addEmployeeSuccess(response.data.data));
+      yield put(push('/admin/employees'));
+    }
+    else {
+      yield put(addEmployeeFailure(response.errors))
+    }
   }
   catch (errors) {
-    yield put(addEmployeeFailure(errors));
+    yield put(addEmployeeFailure(errors.response.data.errors));
   }
 }
 

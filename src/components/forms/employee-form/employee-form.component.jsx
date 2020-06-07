@@ -8,8 +8,10 @@ import './employee-form.styles.scss';
 import VidFormInput from '../form-input/form-input.component';
 import CustomButton from '../../general/custom-button/custom-button.component';
 import { addEmployeeStart } from '../../../redux/employee/employee.actions'; 
+import { selectEmployeeErrors } from '../../../redux/employee/employee.selectors';
+import { createStructuredSelector } from 'reselect';
 
-const EmployeeForm = ({ addEmployeeStart }) => {
+const EmployeeForm = ({ addEmployeeStart, errors }) => {
 
   const formik = useFormik({
     initialValues: {
@@ -44,6 +46,9 @@ const EmployeeForm = ({ addEmployeeStart }) => {
   return (
     <div className='employee-form-contanier'>
       <h2> ADD EMPLOYEE </h2>
+      {
+        errors && errors.Email && <div className='error-text'>{ errors.Email[0] }</div>
+      }
       <form onSubmit={ formik.handleSubmit } className='employee-form' id='employee-form'>
         <VidFormInput formik={ formik } name='email' label='Email' />
         <VidFormInput formik={ formik } name='password' label='Password' type='password' />
@@ -66,4 +71,8 @@ const mapDispatchToProps = dispatch => ({
   addEmployeeStart: employee => dispatch(addEmployeeStart(employee))
 });
 
-export default connect(null, mapDispatchToProps)(EmployeeForm);
+const mapStateToProps = createStructuredSelector({
+  errors: selectEmployeeErrors
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeForm);

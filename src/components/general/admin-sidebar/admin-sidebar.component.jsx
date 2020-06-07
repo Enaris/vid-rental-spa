@@ -9,7 +9,6 @@ const AdminSideBar = () => {
     <nav className='sidebar'>
       <NavLink exact className='sidebar-link' activeClassName='sidebar-link-active' to={`${url}/employees`}> EMPLOYEES </NavLink>
       <NavLink exact className='sidebar-link' activeClassName='sidebar-link-active' to={`${url}/employees/add`}> ADD EMPLOYEE </NavLink>
-      <NavLink exact className='sidebar-link' activeClassName='sidebar-link-active' to={`${url}/orders`}> ORDERS </NavLink>
     </nav>
   )
 };

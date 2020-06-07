@@ -18,6 +18,7 @@ import {
   rentCartridgeFailure,
   rentCartridgeSuccess
 } from './cartridge-rent.actions';
+import { push } from 'connected-react-router';
 
 export function* fetchRentList() {
   try {
@@ -51,16 +52,20 @@ export function* fetchForm({ payload: { cartridgeId, userId } }) {
     : yield put(fetchRentFormFailure(response.errors))
   }
   catch (errors) {
-    yield put(fetchRentFormFailure(errors));
+    yield put(fetchRentFormFailure(errors.response.data.errors));
   }
 }
 
 export function* rentCartridge({ payload: { cartridgeId, userId, ...otherProps } }) {
   try {
     const response = yield call(axios.post, getRentCartridgeUrl(cartridgeId, userId), otherProps);
-    response.data.succeeded
-    ? yield put(rentCartridgeSuccess(response.data.data))
-    : yield put(rentCartridgeFailure(response.errors))
+    if (response.data.succeeded) {
+      yield put(rentCartridgeSuccess(response.data.data));
+      yield put(push('/cartridges'));
+    }
+    else {
+      yield put(rentCartridgeFailure(response.errors))
+    }
   }
   catch (errors) {
     yield put(rentCartridgeFailure(errors));

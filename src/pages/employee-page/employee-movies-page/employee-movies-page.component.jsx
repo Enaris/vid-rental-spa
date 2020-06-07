@@ -15,8 +15,11 @@ const MoviesPage = ({ movies, fetchMoviesStart }) => {
   return (
     <div>
       {
-        movies &&
-        <MovieList movies={ movies } />
+        !movies 
+        ? <div> Loading... </div>
+        : movies && !movies.length
+        ? <div> There are no movies yet </div>
+        : <MovieList movies={ movies } />
       }
     </div>
   )

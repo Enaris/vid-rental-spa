@@ -1,0 +1,19 @@
+@import '../../sass/colors';
+
+.homepage {
+  .homepage-text {
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+
+  .homepage-link > a{
+    color: $periwinkle;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 30px;
+  } 
+
+  .homepage-text, .homepage-link {
+    text-align: center;
+  }
+}

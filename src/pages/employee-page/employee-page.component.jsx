@@ -23,13 +23,14 @@ const EmployeePage = () => {
       </LeftPanel>
         <div className='content-container'>
           <Switch>
+            
             <AuthRoute exact 
-              path={`${path}/movies`} 
-              Component={ EmployeeMoviesPage } 
+              path={`${path}/movies/:id/edit`} 
+              Component={ MovieEditPage } 
               requiredRole={ UserRoles.Employee }
               redirectTo='/'
             />
-            
+
             <AuthRoute exact 
               path={`${path}/movies/add`} 
               Component={ MovieAddPage } 
@@ -38,8 +39,8 @@ const EmployeePage = () => {
             />
 
             <AuthRoute exact 
-              path={`${path}/movies/:id/edit`} 
-              Component={ MovieEditPage } 
+              path={`${path}/movies`} 
+              Component={ EmployeeMoviesPage } 
               requiredRole={ UserRoles.Employee }
               redirectTo='/'
             />

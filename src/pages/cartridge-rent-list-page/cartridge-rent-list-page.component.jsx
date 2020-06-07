@@ -20,8 +20,8 @@ const CartridgeRentListPage = ({ fetchRentList, rentList, listLoading }) => {
       {
         listLoading 
         ? <div> Items for rent are lodaing </div> 
-        : !listLoading && !rentList 
-        ? <div> Check shop later, currently are no items here </div>
+        : !listLoading && rentList && !rentList.length
+        ? <div> Check shop later, currently there are no items here </div>
         : <CartridgeRentList cartridges={ rentList } />
       }
     </div>

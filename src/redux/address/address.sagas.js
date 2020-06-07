@@ -13,6 +13,7 @@ import {
   deactivateAddressFailure,
   fetchAddressesStart
 } from './address.actions';
+import { push } from 'connected-react-router';
 
 export function* fetchAddresses({ payload }) {
   try {
@@ -33,9 +34,13 @@ export function* addAddress({ payload }) {
       userId: payload.userId
     }
     const response = yield call(axios.post, staticUrls.addAddress, data);    
-    response.data.succeeded
-    ? yield put(addAddressSuccess(response.data.data))
-    : yield put(addAddressFailure(response.errors))
+    if (response.data.succeeded) {
+      yield put(addAddressSuccess(response.data.data))
+      yield put(push('/user/address'))
+    } 
+    else {
+      yield put(addAddressFailure(response.errors))
+    }
   }
   catch (errors) {
     yield put(addAddressFailure(errors));

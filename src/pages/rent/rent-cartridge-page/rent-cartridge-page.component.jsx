@@ -27,11 +27,11 @@ const RentCartridgePage = ({ fetchFormData, loading, errors, formData }) => {
         loading 
         ? <div> Cartridge to rent is loading </div>
         : !loading && errors 
-        ? (errors.cartridge 
+        ? (errors.Cartridge 
           ? <div> Cartridge you want to rent does not seem to exist </div> 
-          : errors.user 
+          : errors.User 
           ? <div> You cannot rent cartridge with unsettled rentals, check your rent history for details </div>
-          : errors.noItems
+          : errors.NoItems
           ? <div> Requested cartridge is already rented out </div> 
           : <div> Something went wrong, try again later </div>)
         : <RentForm cartidgeRental={ formData } />
